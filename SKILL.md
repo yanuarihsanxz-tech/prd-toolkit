@@ -42,6 +42,13 @@ belong to a separate builder request. Historical runner/build/audit layouts rema
 available for explicit direct use; do not load them during PRD preparation.
 Toolkit maintenance requests follow AGENTS.md and PROJECT_CONTEXT.md separately.
 
+Treat this toolkit as the specification coordinator. Identify specialist
+capabilities the product requires, including UI/UX, accessibility, security,
+domain research or testing when applicable. Route them to tools available in the
+builder's actual environment and state the required evidence in the PRD. A tool
+name is a preference, not an installed capability or a completed result. Do not
+claim the toolkit itself supplies specialist design or implementation work.
+
 ## Generate
 
 Use the resolved decisions and research already in this conversation. Do not

@@ -31,8 +31,11 @@ conversation logs, author-specific paths, generated media and application data
 are excluded. `private: true` in package.json prevents accidental npm publication;
 it does not prevent a public GitHub repository.
 
-After GitHub authentication, run these commands from the clean exported checkout
-only. They initialize a separate repository and publish it under your account:
+The published repository is
+[yanuarihsanxz-tech/prd-toolkit](https://github.com/yanuarihsanxz-tech/prd-toolkit).
+The commands below are for publishing a new fork or a different repository from
+a clean exported checkout after GitHub authentication. Do not repeat them for
+the existing public repository:
 
 ```bash
 git init -b main
@@ -49,9 +52,9 @@ alone is not evidence of a successful upload.
 ## Continuous Checks And Limits
 
 GitHub Actions runs `npm run check` on Node 20, 22 and 24 across Linux, macOS and
-Windows. These are declared test targets, not claims of successful remote runs.
-The toolkit checks need no install, credentials or API access. Hosted Actions
-must run before claiming those environments are verified.
+Windows. The toolkit checks need no install, credentials or API access. See
+[PROGRESS](../PROGRESS.md) for the last verified hosted run; inspect the current
+commit's Actions result before claiming that commit passed.
 
 The export test exercises a path containing spaces, an unrelated working
 directory, both PRD examples, source identity and overwrite refusal. Other tests

@@ -14,6 +14,12 @@ analysis-only intent is read-only. New/rework/bug-fix describes the specificatio
 scope, not an instruction to modify application code. Build utilities remain
 available only through separate explicit requests.
 
+The toolkit coordinates early product definition. It identifies specialist
+capabilities and evidence needed for the target product, then records routes for
+a separately authorized builder. It does not bundle UI/UX, security, research,
+browser automation or other specialist runtimes. The agent checks actual host
+availability and records an equivalent route or an unresolved gap.
+
 ## Entry And Ownership
 
 [SKILL.md](SKILL.md) is the folder entry. Read it and only the selected operation.

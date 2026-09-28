@@ -13,6 +13,8 @@ Toolkit versions follow the policy in `BASELINE.md`.
 
 - Use Node's test discovery so the check command works on supported Node versions.
 - Check POSIX state-file permissions only on systems that expose POSIX mode bits.
+- Clarify the coordinator role, specialist-tool boundaries, optional Reasonix
+  adapter, and public checkout command in first-use documentation.
 
 ## [3.1.2] - 2026-09-27
 

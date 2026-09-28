@@ -9,11 +9,30 @@ Use any local checkout path. Substitute your actual toolkit path wherever the
 examples show `/absolute/path/to/prd-toolkit`. For a clean Git checkout, follow
 the [distribution guide](docs/DISTRIBUTION.md).
 
+## Role And Specialist Tools
+
+PRD Maker coordinates product specification at the start of a project. It turns
+the agreed outcome into requirements, acceptance criteria, a product flow, and a
+plan for what evidence the eventual builder must collect. It names specialist
+capabilities when the product needs them, such as UI/UX design, accessibility,
+browser testing, security, or domain-specific research. The builder then uses
+available specialist tools and project code to deliver and verify those parts.
+
+This toolkit does not contain those specialist tools or install them. A PRD that
+mentions UI/UX does not by itself produce a polished interface. The agent must
+check which tools are actually available, choose an appropriate route or fallback,
+and leave any unmet requirement unverified rather than claim it is done.
+
 ## Get Started
 
 Download this repository using **Code → Download ZIP**, or copy the clone URL
-from the repository's **Code** menu and run `git clone` with it. Extract/open the
-checkout in your preferred coding agent. Node.js 20+ runs the checks; no
+from the repository's **Code** menu. For this public repository:
+
+```bash
+git clone https://github.com/yanuarihsanxz-tech/prd-toolkit.git
+```
+
+Open the checkout in your preferred coding agent. Node.js 20+ runs the checks; no
 `npm install`, API key, paid service, or additional workflow plugin is needed.
 
 From the checkout directory:
@@ -71,6 +90,11 @@ Start with [SKILL.md](SKILL.md), then only the selected generation, improvement
 or review route. The [generator](prompts/PRD_GENERATOR_PROMPT.md) owns generation;
 [Full](templates/full.md) and [Lite](templates/lite.md) own document structure.
 See [contribution guidance](docs/CONTRIBUTING.md) for toolkit maintenance.
+
+The `.reasonix/commands/prd/` folder is an optional adapter for people who
+already use the Reasonix agent runtime. Its seven slash commands call the same
+toolkit operations; ordinary PRD Maker use does not need Reasonix. See the
+[adapter guide](docs/REASONIX_ADAPTER.md) only if you use that runtime.
 
 ## Verification And Limits
 
