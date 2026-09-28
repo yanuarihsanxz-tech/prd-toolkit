@@ -111,8 +111,12 @@ date.
 Before adopting an optional optimizer, record a baseline and comparison using
 the same representative task. Measure total input, cached input when exposed,
 output, retries, elapsed time, preserved actionable failures, and final task
-correctness. Reject the optimizer if it hides relevant evidence or produces no
-material end-to-end improvement.
+correctness. Include debugging, revisions and human review through the same
+acceptance boundary; compare matched scope and quality. More upfront effort may
+be worthwhile when it reduces later rework or improves the verified outcome.
+Record maintenance benefits as expected until observed, and keep elapsed time
+separate from token or monetary cost. Reject the optimizer if it hides relevant
+evidence or produces no material end-to-end improvement.
 
 RTK is therefore conditional and Headroom remains experimental; neither is a
 prerequisite for discovery, PRD generation, implementation, or audit.

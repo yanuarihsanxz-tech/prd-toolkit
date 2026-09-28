@@ -23,10 +23,20 @@ them. A PRD that mentions UI/UX does not by itself produce a polished interface.
 The agent must check which tools are actually available, choose an appropriate route or fallback,
 and leave any unmet requirement unverified rather than claim it is done.
 
-**Lean by default.** Reuse decisions from the conversation, read only the selected
-operation, scale Full/Lite detail to the product, and avoid duplicate plans,
-diagrams, or tool installations. These rules aim to reduce avoidable time and
-token use; savings vary by project and are not guaranteed.
+**Efficiency means value across the project lifecycle.** Judge the delivered
+scope, quality, and reliability against the total time, tokens, money, and human
+effort spent on planning, building, testing, debugging, revisions, and maintenance.
+More work upfront can be worthwhile when it clarifies a costly decision, exposes
+a failure case, or prevents building the wrong thing.
+
+**Proportional effort, complete outcomes.** Invest detail where uncertainty or
+failure consequences justify it. Reuse settled decisions and avoid duplicated
+work. A short PRD can leave expensive gaps; a long PRD can add ceremony. Project
+size, document length, and initial speed alone do not establish value.
+
+The intended benefit is better decisions and less avoidable rework. Measure it
+against comparable scope and quality over the whole workflow. This toolkit does
+not guarantee fewer bugs, lower total cost, or any fixed saving.
 
 ## Start With A Link, Clone, Or ZIP
 

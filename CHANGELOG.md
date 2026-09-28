@@ -9,6 +9,13 @@ Toolkit versions follow the policy in `BASELINE.md`.
 
 ## [Unreleased]
 
+### Changed
+
+- Define efficiency as delivered scope, quality and reliability relative to
+  total lifecycle effort, including debugging, rework and maintenance.
+- Make specification depth depend on decision value, uncertainty and failure
+  consequences; upfront speed or token count alone is not the objective.
+
 ### Fixed
 
 - Use Node's test discovery so the check command works on supported Node versions.

@@ -68,6 +68,15 @@ material failure paths. Keep the PRD as the source of truth.
 
 ## Context And Efficiency
 
+Optimize for delivered scope, quality, and reliability relative to total
+project effort: planning, implementation, verification, debugging, rework,
+handoff, and maintenance. Spend additional reasoning or specification detail
+when it can resolve consequential uncertainty or prevent costly mistakes.
+Choose depth from risk and decision value; document length, initial speed,
+and project size alone do not determine efficiency. Preserve necessary detail
+and checks even when they increase upfront token use. Treat expected benefits
+as hypotheses until outcomes and total effort have been measured.
+
 Read this entry point and the selected operation, not the whole toolkit. Load
 the [reliability guide](prompts/RELIABILITY_GUIDE.md) only for relevant risks and
 the [research/tool guide](prompts/RESEARCH_AND_TOOL_ROUTING.md) for an unresolved
