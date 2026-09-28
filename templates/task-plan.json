@@ -1,0 +1,112 @@
+{
+  "schema_version": 2,
+  "plan": {
+    "id": "local-plan-v2",
+    "title": "Outcome-oriented local implementation plan",
+    "prd": "PRD.md",
+    "prd_version": "0.1.0",
+    "source_fingerprint": "manifest-sha256:REPLACE_WITH_CURRENT_SOURCE_FINGERPRINT",
+    "generated_at": "2000-01-01T00:00:00Z"
+  },
+  "tasks": [
+    {
+      "ref": "PRODUCT-P1-001",
+      "title": "Deliver the first runnable product outcome",
+      "objective": "Implement the earliest user/operator-visible workflow across every required code layer so the product can be tried immediately, with focused verification and no deferred integration hidden behind mocks.",
+      "layer": "vertical_slice",
+      "phase": 1,
+      "phase_total": 3,
+      "page": null,
+      "requirement_ids": ["FR-001", "NFR-001"],
+      "acceptance_criteria_ids": ["AC-001", "AC-002"],
+      "depends_on": [],
+      "allowed_paths": ["src/**", "tests/**", "README.md"],
+      "forbidden_paths": [".env*", "production/**", "secrets/**"],
+      "verification": [
+        {
+          "id": "VER-001",
+          "method": "test",
+          "environment": "local test environment",
+          "procedure": "Run focused checks and one bounded behavioral smoke for the first runnable product outcome and its required failure behavior.",
+          "expected_result": "The first approved workflow starts or executes in the declared local mode, can be tried through its intended interface, its focused checks pass, and no forbidden side effect occurs.",
+          "evidence_required": "Sanitized command, exit code, key assertions, cleanup result, and source fingerprint.",
+          "timeout_seconds": 600,
+          "cleanup": "Stop task-owned processes and remove only task-owned temporary artifacts."
+        }
+      ],
+      "authority": {
+        "execution_mode": "local_test",
+        "allowed_side_effects": ["edit files matched by allowed_paths", "create task-owned local test artifacts"],
+        "forbidden_side_effects": ["undeclared network or provider access", "production deployment", "external notifications", "financial or destructive operations"],
+        "requires_owner_authorization": false
+      },
+      "max_attempts": 3
+    },
+    {
+      "ref": "SYSTEM-P2-001",
+      "title": "Complete the connected MVP system",
+      "objective": "Complete the remaining approved backend, data, provider, integration, feature, and usability work required for one independently usable MVP, then prove the connected success and failure paths.",
+      "layer": "vertical_slice",
+      "phase": 2,
+      "phase_total": 3,
+      "page": "core-workflow",
+      "requirement_ids": ["FR-002", "FR-003", "NFR-002"],
+      "acceptance_criteria_ids": ["AC-003", "AC-004", "AC-005"],
+      "depends_on": ["PRODUCT-P1-001"],
+      "allowed_paths": ["src/**", "tests/**", "README.md"],
+      "forbidden_paths": [".env*", "production/**", "secrets/**"],
+      "verification": [
+        {
+          "id": "VER-002",
+          "method": "test",
+          "environment": "local test environment",
+          "procedure": "Run the focused unit and integration checks plus one bounded behavioral smoke for the complete core workflow.",
+          "expected_result": "The approved happy path and material failure paths work end to end without optimistic or fabricated success state.",
+          "evidence_required": "Sanitized commands, exit codes, key assertions, smoke result, cleanup result, and source fingerprint.",
+          "timeout_seconds": 1200,
+          "cleanup": "Stop task-owned processes and remove only task-owned temporary artifacts."
+        }
+      ],
+      "authority": {
+        "execution_mode": "local_test",
+        "allowed_side_effects": ["edit files matched by allowed_paths", "create task-owned local test artifacts"],
+        "forbidden_side_effects": ["undeclared network or provider access", "production deployment", "external notifications", "financial or destructive operations"],
+        "requires_owner_authorization": false
+      },
+      "max_attempts": 3
+    },
+    {
+      "ref": "AUDIT-P3-001",
+      "title": "Run the final integrated product audit",
+      "objective": "Run milestone-level convergence and prepare exact evidence, limitations, and handoff for the owner without inferring final acceptance.",
+      "layer": "qualification",
+      "phase": 3,
+      "phase_total": 3,
+      "page": null,
+      "requirement_ids": ["FR-001", "FR-002", "FR-003", "NFR-001", "NFR-002"],
+      "acceptance_criteria_ids": ["AC-001", "AC-002", "AC-003", "AC-004", "AC-005"],
+      "depends_on": ["SYSTEM-P2-001"],
+      "allowed_paths": ["src/**", "tests/**", "README.md", "PROGRESS.md", "IMPLEMENTATION_AUDIT.md"],
+      "forbidden_paths": [".env*", "production/**", "secrets/**"],
+      "verification": [
+        {
+          "id": "VER-003",
+          "method": "test",
+          "environment": "local qualification environment",
+          "procedure": "Run the full applicable regression, security or secret checks, and real behavioral/manual product trial against the final source state. Repair in-scope defects and rerun affected evidence.",
+          "expected_result": "The product is runnable and manually exercised through its core workflow; all implementation-scoped acceptance criteria and required checks have current passing evidence, with cleanup complete and IMPLEMENTATION_AUDIT.md covering every ID. Required blocked checks prevent completion; optional or out-of-scope limitations never imply production activation.",
+          "evidence_required": "Sanitized commands, exit codes, manual trial steps and observed result, defect/fix summary, coverage summary, limitations, cleanup result, and final source fingerprint.",
+          "timeout_seconds": 1800,
+          "cleanup": "Stop task-owned processes, retain only declared evidence, and leave production inactive."
+        }
+      ],
+      "authority": {
+        "execution_mode": "local_test",
+        "allowed_side_effects": ["edit files matched by allowed_paths", "create task-owned local qualification artifacts"],
+        "forbidden_side_effects": ["undeclared network or provider access", "production deployment or activation", "external notifications", "financial or destructive operations", "fabricated owner acceptance"],
+        "requires_owner_authorization": false
+      },
+      "max_attempts": 3
+    }
+  ]
+}

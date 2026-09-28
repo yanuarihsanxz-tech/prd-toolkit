@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:prd-toolkit:schema:generator-regression:1",
+  "title": "PRD Generator Regression Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "cases"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/$defs/case"
+      }
+    }
+  },
+  "$defs": {
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "rough_idea",
+        "output",
+        "expected_type",
+        "expected_valid",
+        "required_contracts",
+        "expected_finding_codes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "rough_idea": {
+          "type": "string",
+          "minLength": 20
+        },
+        "output": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.md$"
+        },
+        "expected_type": {
+          "enum": [
+            "app",
+            "tool"
+          ]
+        },
+        "mutation": {
+          "$ref": "#/$defs/mutation"
+        },
+        "expected_valid": {
+          "type": "boolean"
+        },
+        "expected_counts": {
+          "$ref": "#/$defs/counts"
+        },
+        "required_contracts": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "expected_finding_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]+$"
+          }
+        }
+      }
+    },
+    "mutation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "find",
+        "replace"
+      ],
+      "properties": {
+        "find": {
+          "type": "string",
+          "minLength": 1
+        },
+        "replace": {
+          "type": "string"
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sections": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "requirements": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "acceptance_criteria": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "traceability_rows": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mermaid_diagrams": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "milestones": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

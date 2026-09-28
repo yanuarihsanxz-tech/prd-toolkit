@@ -1,0 +1,15 @@
+.DS_Store
+node_modules/
+coverage/
+*.log
+.prd/
+TASKS.json
+TASK_STATE.json
+.reasonix/autoresearch/
+runs/
+dist/
+.env
+.env.*
+!.env.example
+*.pem
+*.key

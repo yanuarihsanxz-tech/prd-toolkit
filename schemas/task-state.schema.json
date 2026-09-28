@@ -1,0 +1,462 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:prd-toolkit:schema:task-state:2",
+  "title": "Local Phase-Gated Task State v2",
+  "$comment": "The runner additionally enforces plan/source fingerprint equality, revision/event-count equality, event sequencing, active-task consistency, ordered execution, and attempt bounds.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "revision",
+    "plan_id",
+    "plan_fingerprint",
+    "source_fingerprint",
+    "plan_approval",
+    "active_task",
+    "approved_transition",
+    "last_completed",
+    "tasks",
+    "event_log"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "plan_id": {
+      "$ref": "#/$defs/planId"
+    },
+    "plan_fingerprint": {
+      "$ref": "#/$defs/planFingerprint"
+    },
+    "source_fingerprint": {
+      "$ref": "#/$defs/sourceFingerprint"
+    },
+    "plan_approval": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/planApproval" }
+      ]
+    },
+    "run_authorization": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/runAuthorization" }
+      ]
+    },
+    "active_task": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/taskRef" }
+      ]
+    },
+    "approved_transition": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/transitionApproval" }
+      ]
+    },
+    "last_completed": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/lastCompleted" }
+      ]
+    },
+    "tasks": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[A-Z0-9][A-Z0-9._-]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/taskRecord"
+      }
+    },
+    "event_log": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event"
+      }
+    }
+  },
+  "$defs": {
+    "planId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "taskRef": {
+      "type": "string",
+      "pattern": "^[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "planFingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "sourceFingerprint": {
+      "type": "string",
+      "pattern": "^(git|sha256|manifest-sha256):[A-Za-z0-9][A-Za-z0-9._:+-]*$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "evidence": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "planApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approved_at",
+        "approved_by",
+        "evidence",
+        "plan_fingerprint",
+        "source_fingerprint"
+      ],
+      "properties": {
+        "approved_at": { "$ref": "#/$defs/timestamp" },
+        "approved_by": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "evidence": { "$ref": "#/$defs/evidence" },
+        "plan_fingerprint": { "$ref": "#/$defs/planFingerprint" },
+        "source_fingerprint": { "$ref": "#/$defs/sourceFingerprint" }
+      }
+    },
+    "transitionApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_ref",
+        "approved_at",
+        "approved_by",
+        "evidence",
+        "reasons",
+        "from",
+        "plan_fingerprint",
+        "source_fingerprint"
+      ],
+      "properties": {
+        "task_ref": { "$ref": "#/$defs/taskRef" },
+        "approved_at": { "$ref": "#/$defs/timestamp" },
+        "approved_by": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "evidence": { "$ref": "#/$defs/evidence" },
+        "reasons": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "phase_advanced and owner_authorization_required are current checkpoint reasons. layer_changed is retained only so previously recorded schema-v2 state remains valid; new runner decisions do not emit it.",
+          "items": {
+            "enum": [
+              "layer_changed",
+              "phase_advanced",
+              "owner_authorization_required"
+            ]
+          }
+        },
+        "from": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/lastCompleted" }
+          ]
+        },
+        "plan_fingerprint": { "$ref": "#/$defs/planFingerprint" },
+        "source_fingerprint": { "$ref": "#/$defs/sourceFingerprint" }
+      }
+    },
+    "runAuthorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorization_version",
+        "authorized_at",
+        "authorized_by",
+        "evidence",
+        "from_task_ref",
+        "through_task_ref",
+        "task_refs",
+        "execution_modes",
+        "plan_fingerprint",
+        "source_fingerprint"
+      ],
+      "properties": {
+        "authorization_version": { "const": 1 },
+        "authorized_at": { "$ref": "#/$defs/timestamp" },
+        "authorized_by": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "evidence": { "$ref": "#/$defs/evidence" },
+        "from_task_ref": { "$ref": "#/$defs/taskRef" },
+        "through_task_ref": { "$ref": "#/$defs/taskRef" },
+        "task_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/taskRef" }
+        },
+        "execution_modes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["read_only", "dry_run", "local_test", "staging"]
+          }
+        },
+        "plan_fingerprint": { "$ref": "#/$defs/planFingerprint" },
+        "source_fingerprint": { "$ref": "#/$defs/sourceFingerprint" }
+      }
+    },
+    "lastCompleted": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref",
+        "layer",
+        "phase",
+        "completed_at",
+        "source_state",
+        "evidence",
+        "plan_fingerprint"
+      ],
+      "properties": {
+        "ref": { "$ref": "#/$defs/taskRef" },
+        "layer": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*$"
+        },
+        "phase": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "completed_at": { "$ref": "#/$defs/timestamp" },
+        "source_state": { "$ref": "#/$defs/sourceFingerprint" },
+        "evidence": { "$ref": "#/$defs/evidence" },
+        "plan_fingerprint": { "$ref": "#/$defs/planFingerprint" }
+      }
+    },
+    "failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "reason",
+        "evidence",
+        "source_state",
+        "failed_at"
+      ],
+      "properties": {
+        "classification": {
+          "enum": [
+            "REQUIREMENT_AMBIGUOUS",
+            "CODE_FAILED",
+            "TEST_FAILED",
+            "TEST_FLAKY",
+            "MOCK_INVALID",
+            "CONTRACT_UNVERIFIED",
+            "SCHEMA_MISMATCH",
+            "DATA_STALE",
+            "ENVIRONMENT_BLOCKED",
+            "EXTERNAL_DEPENDENCY_FAILED",
+            "CONFIGURATION_INACTIVE",
+            "OPERATOR_DECISION_REQUIRED",
+            "EVIDENCE_STALE",
+            "OPERATIONAL_STATE_STALE",
+            "RESOURCE_BUDGET_EXCEEDED"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "evidence": { "$ref": "#/$defs/evidence" },
+        "source_state": { "$ref": "#/$defs/sourceFingerprint" },
+        "failed_at": { "$ref": "#/$defs/timestamp" }
+      }
+    },
+    "retryAuthorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorized_at",
+        "authorized_by",
+        "evidence",
+        "source_state",
+        "prior_failure",
+        "plan_fingerprint"
+      ],
+      "properties": {
+        "authorized_at": { "$ref": "#/$defs/timestamp" },
+        "authorized_by": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "evidence": { "$ref": "#/$defs/evidence" },
+        "source_state": { "$ref": "#/$defs/sourceFingerprint" },
+        "prior_failure": { "$ref": "#/$defs/failure" },
+        "plan_fingerprint": { "$ref": "#/$defs/planFingerprint" }
+      }
+    },
+    "completion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_state", "evidence", "verified_checks"],
+      "properties": {
+        "source_state": { "$ref": "#/$defs/sourceFingerprint" },
+        "evidence": { "$ref": "#/$defs/evidence" },
+        "verified_checks": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^VER-[0-9]{3}$"
+          }
+        }
+      }
+    },
+    "attempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "number",
+        "started_at",
+        "source_state",
+        "preflight_evidence",
+        "transition_approval",
+        "retry_authorization"
+      ],
+      "properties": {
+        "number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "started_at": { "$ref": "#/$defs/timestamp" },
+        "source_state": { "$ref": "#/$defs/sourceFingerprint" },
+        "preflight_evidence": { "$ref": "#/$defs/evidence" },
+        "transition_approval": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/transitionApproval" }
+          ]
+        },
+        "run_authorization": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/runAuthorization" }
+          ]
+        },
+        "retry_authorization": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/retryAuthorization" }
+          ]
+        },
+        "completed_at": { "$ref": "#/$defs/timestamp" },
+        "completion": { "$ref": "#/$defs/completion" },
+        "failed_at": { "$ref": "#/$defs/timestamp" },
+        "failure": { "$ref": "#/$defs/failure" }
+      }
+    },
+    "taskRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "attempts"],
+      "properties": {
+        "status": {
+          "enum": ["pending", "in_progress", "completed", "failed"]
+        },
+        "attempts": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/attempt" }
+        },
+        "started_at": { "$ref": "#/$defs/timestamp" },
+        "completed_at": { "$ref": "#/$defs/timestamp" },
+        "failed_at": { "$ref": "#/$defs/timestamp" },
+        "last_failure": { "$ref": "#/$defs/failure" },
+        "retry_authorization": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/retryAuthorization" }
+          ]
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence",
+        "at",
+        "type",
+        "task_ref",
+        "actor",
+        "evidence",
+        "source_state",
+        "plan_fingerprint",
+        "details"
+      ],
+      "properties": {
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "at": { "$ref": "#/$defs/timestamp" },
+        "type": {
+          "enum": [
+            "plan_approved",
+            "run_authorized",
+            "task_transition_approved",
+            "task_started",
+            "task_completed",
+            "task_failed",
+            "task_retry_authorized"
+          ]
+        },
+        "task_ref": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/taskRef" }
+          ]
+        },
+        "actor": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          ]
+        },
+        "evidence": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/evidence" }
+          ]
+        },
+        "source_state": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/sourceFingerprint" }
+          ]
+        },
+        "plan_fingerprint": { "$ref": "#/$defs/planFingerprint" },
+        "details": {}
+      }
+    }
+  }
+}

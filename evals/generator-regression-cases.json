@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "full-stateful-application",
+      "rough_idea": "Build a single-admin warehouse inventory web application with authentication, batch-level stock movements, low-stock visibility, and auditable history.",
+      "output": "examples/app-prd-example.md",
+      "expected_type": "app",
+      "expected_valid": true,
+      "expected_counts": {
+        "sections": 10,
+        "requirements": 11,
+        "acceptance_criteria": 29,
+        "traceability_rows": 6,
+        "milestones": 3
+      },
+      "required_contracts": [
+        "Conditional Reliability Contracts",
+        "Builder Capability Routing Contract",
+        "Execution And Authority Rule",
+        "Verification Receipt and Operator Handoff",
+        "Review Focus"
+      ],
+      "expected_finding_codes": []
+    },
+    {
+      "id": "lite-ai-automation",
+      "rough_idea": "Build a voice-note automation that polls Google Docs, normalizes notes with an AI-capable gateway, posts authorized messages to Discord, and optionally creates Kanban tasks.",
+      "output": "examples/tool-prd-example.md",
+      "expected_type": "tool",
+      "expected_valid": true,
+      "expected_counts": {
+        "sections": 6,
+        "requirements": 14,
+        "acceptance_criteria": 13,
+        "traceability_rows": 9,
+        "milestones": 3
+      },
+      "required_contracts": [
+        "AI System Requirements",
+        "Builder Capability Routing Contract",
+        "Runtime Checks",
+        "Execution And Authority Rule",
+        "Review Focus"
+      ],
+      "expected_finding_codes": []
+    },
+    {
+      "id": "reject-milestone-state-contradiction",
+      "rough_idea": "Regression mutation: a draft application claims a milestone beyond the declared total.",
+      "output": "examples/app-prd-example.md",
+      "expected_type": "app",
+      "mutation": {
+        "find": "current_milestone: 0",
+        "replace": "current_milestone: 5"
+      },
+      "expected_valid": false,
+      "required_contracts": [],
+      "expected_finding_codes": [
+        "FM_DRAFT_STATE",
+        "FM_MILESTONE_RANGE"
+      ]
+    },
+    {
+      "id": "reject-one-way-requirement-link",
+      "rough_idea": "Regression mutation: a requirement references an acceptance criterion that does not map back.",
+      "output": "examples/tool-prd-example.md",
+      "expected_type": "tool",
+      "mutation": {
+        "find": "| FR-001 | Capture Gemini voice notes into a known Google Docs source document. | Must | AC-001 |",
+        "replace": "| FR-001 | Capture Gemini voice notes into a known Google Docs source document. | Must | AC-001, AC-013 |"
+      },
+      "expected_valid": false,
+      "required_contracts": [],
+      "expected_finding_codes": [
+        "TRACE_PAIR_MISMATCH"
+      ]
+    },
+    {
+      "id": "reject-orphaned-traceability",
+      "rough_idea": "Regression mutation: the Full PRD traceability matrix omits one defined requirement.",
+      "output": "examples/app-prd-example.md",
+      "expected_type": "app",
+      "mutation": {
+        "find": "| Admin Dashboard | FR-005, NFR-001 |",
+        "replace": "| Admin Dashboard | FR-005 |"
+      },
+      "expected_valid": false,
+      "required_contracts": [],
+      "expected_finding_codes": [
+        "TRACE_REQUIREMENT_COVERAGE"
+      ]
+    },
+    {
+      "id": "reject-unresolved-generator-placeholder",
+      "rough_idea": "Regression mutation: generated output still contains an unresolved decision marker.",
+      "output": "examples/tool-prd-example.md",
+      "expected_type": "tool",
+      "mutation": {
+        "find": "### Review Focus",
+        "replace": "TODO\n\n### Review Focus"
+      },
+      "expected_valid": false,
+      "required_contracts": [],
+      "expected_finding_codes": [
+        "CONTENT_PLACEHOLDER"
+      ]
+    },
+    {
+      "id": "reject-wrong-lite-section-number",
+      "rough_idea": "Regression mutation: Lite output breaks the canonical six-section order.",
+      "output": "examples/tool-prd-example.md",
+      "expected_type": "tool",
+      "mutation": {
+        "find": "## 6. Progress",
+        "replace": "## 7. Progress"
+      },
+      "expected_valid": false,
+      "required_contracts": [],
+      "expected_finding_codes": [
+        "STRUCT_SECTION_ORDER"
+      ]
+    },
+    {
+      "id": "reject-misplaced-builder-routing",
+      "rough_idea": "Regression mutation: a routing contract is moved to a separate top-level section.",
+      "output": "examples/tool-prd-example.md",
+      "expected_type": "tool",
+      "mutation": {
+        "find": "### Builder Capability Routing Contract",
+        "replace": "## Builder appendix\n\n### Builder Capability Routing Contract"
+      },
+      "expected_valid": false,
+      "required_contracts": [],
+      "expected_finding_codes": [
+        "BUILDER_ROUTING_LOCATION"
+      ]
+    },
+    {
+      "id": "reject-commented-builder-routing",
+      "rough_idea": "Regression mutation: the only routing contract is hidden inside an HTML comment.",
+      "output": "examples/tool-prd-example.md",
+      "expected_type": "tool",
+      "mutation": {
+        "find": "### Builder Capability Routing Contract",
+        "replace": "<!-- ### Builder Capability Routing Contract -->"
+      },
+      "expected_valid": false,
+      "required_contracts": [],
+      "expected_finding_codes": [
+        "BUILDER_ROUTING_MISSING"
+      ]
+    },
+    {
+      "id": "reject-placeholder-builder-routing",
+      "rough_idea": "Regression mutation: a routing row retains unresolved template cells.",
+      "output": "examples/tool-prd-example.md",
+      "expected_type": "tool",
+      "mutation": {
+        "find": "| Before implementation planning | Capability discovery and repository grounding | Host-provided skill/tool catalog plus repository instructions | Read `AGENTS.md`, workflow exports, schemas, source, and tests directly | Selected routes and unavailable candidates recorded in the plan summary | Read-only local inspection allowed |",
+        "replace": "| [Trigger detail] | [Capability needed] | [Preferred route] | [Fallback procedure] | [Evidence needed] | [Authority boundary] |"
+      },
+      "expected_valid": false,
+      "required_contracts": [],
+      "expected_finding_codes": [
+        "BUILDER_ROUTING_UNRESOLVED"
+      ]
+    },
+    {
+      "id": "native-local-build-authority",
+      "rough_idea": "A native local build uses explicit user build authority without requiring a runner-approval phrase.",
+      "output": "examples/tool-prd-example.md",
+      "expected_type": "tool",
+      "mutation": {
+        "find": "One exact plan approval covers declared local runner transitions.",
+        "replace": "Runner transitions follow the recorded plan."
+      },
+      "expected_valid": true,
+      "required_contracts": [
+        "Builder Capability Routing Contract"
+      ],
+      "expected_finding_codes": []
+    },
+    {
+      "id": "reject-missing-embedded-builder-entry",
+      "rough_idea": "The PRD metadata references an embedded builder section that does not exist.",
+      "output": "examples/tool-prd-example.md",
+      "expected_type": "tool",
+      "mutation": {
+        "find": "ai_instructions: \"#builder-capability-routing-contract\"",
+        "replace": "ai_instructions: \"#missing-builder\""
+      },
+      "expected_valid": false,
+      "required_contracts": [],
+      "expected_finding_codes": [
+        "FM_AI_INSTRUCTIONS_TARGET"
+      ]
+    }
+  ]
+}

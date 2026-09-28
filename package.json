@@ -1,0 +1,17 @@
+{
+  "name": "prd-toolkit",
+  "version": "3.1.2",
+  "private": true,
+  "description": "Deterministic, files-only PRD generation, validation, governance, and product-first milestone execution toolkit.",
+  "type": "module",
+  "scripts": {
+    "validate:prd": "node scripts/validate-prd.mjs",
+    "validate:toolkit": "node scripts/validate-toolkit.mjs --json",
+    "test": "node --test tests",
+    "check": "node scripts/validate-toolkit.mjs --json && node --test tests"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "license": "MIT"
+}
