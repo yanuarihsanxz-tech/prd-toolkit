@@ -11,6 +11,8 @@ Toolkit versions follow the policy in `BASELINE.md`.
 
 ### Changed
 
+- Explain the foreman, specialist, and builder roles, including how standalone
+  output depends on the host and when available specialist skills can contribute.
 - Reframe efficiency as appropriate investment toward the required outcome and
   evidence, without treating fewer tokens, time, bugs, or cost as universal goals.
 - Add a practical README table and a brief-to-specification example showing

@@ -11,17 +11,28 @@ the [distribution guide](docs/DISTRIBUTION.md).
 
 ## What This Toolkit Does
 
-**PRD Maker is the specification coordinator** at the start of a project. It turns
-the agreed outcome into requirements, acceptance criteria, a product flow, and a
-plan for what evidence the eventual builder must collect. It names specialist
-capabilities when the product needs them, such as UI/UX design, accessibility,
-browser testing, security, or domain-specific research. The builder then uses
-available specialist tools and project code to deliver and verify those parts.
+**Think of PRD Maker as the foreman for the specification.** It turns the agreed
+outcome into requirements, acceptance criteria, a product flow, and a plan for
+what evidence the eventual builder must collect. It identifies where specialists
+are needed and plans how their contribution fits the specification or build.
+
+| Role | Responsibility |
+|---|---|
+| **PRD Maker (foreman)** | Define the product outcome, route specialist needs, record decisions and acceptance evidence, and hand a coherent PRD to the builder. |
+| **Relevant specialists** | Bring focused capability when available: for example visual/UI design, accessibility, security, browser testing, or domain research. Their work informs the PRD or the later build. |
+| **Builder** | Implement the authorized product and verify it against the PRD, using applicable specialist tools and project code. |
+
+**Used on its own, PRD Maker still works, but its output depends on the coding
+agent's model, reasoning effort, available context, and host capabilities.** It
+is not a built-in team of design and security experts. Adding relevant skills or
+tools can change the depth of those parts when the agent can actually access and
+apply them; their presence alone does not guarantee a result.
 
 **Specialist tools remain conditional.** This toolkit does not contain or install
 them. A PRD that mentions UI/UX does not by itself produce a polished interface.
-The agent must check which tools are actually available, choose an appropriate route or fallback,
-and leave any unmet requirement unverified rather than claim it is done.
+The agent must check which tools are actually available, use a relevant one or
+record a suitable route for the builder, and leave any unmet requirement
+unverified rather than claim it is done.
 
 **Efficiency means putting effort where the product needs it.** The goal is the
 agreed outcome at its required quality, with evidence that it works. A project
