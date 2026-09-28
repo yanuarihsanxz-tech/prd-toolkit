@@ -9,8 +9,8 @@ PROGRESS.md using templates/project-progress.md.
 | Current work | Proportional specifications, capability selection and evidence quality |
 | Status | Verified locally: 44 tests, 12 generator cases, Full/Lite previews and clean export checks pass |
 | Prior verification | 3.0.3: 40 tests and 12 representative generator cases passed on macOS arm64 / Node 26.8.1 |
-| Hosted CI | Not yet run |
-| Public repository | https://github.com/yanuarihsanxz-tech/prd-toolkit; verify the live repository and Actions before treating publication or hosted CI as complete |
+| Hosted CI | 9/9 jobs passed on Linux, macOS and Windows with Node 20, 22 and 24: https://github.com/yanuarihsanxz-tech/prd-toolkit/actions/runs/36367364046 |
+| Public repository | https://github.com/yanuarihsanxz-tech/prd-toolkit; 70 canonical files verified on GitHub on 2026-09-28 |
 
 Current source and actual command results take precedence over historical status.
 See evals/git-readiness-2026-09-27.md for bounded audit evidence.
@@ -22,7 +22,7 @@ cases and zero toolkit findings. Routing and audit guidance now distinguish
 outcome assertions, skips, diagnostics and benchmark measurement. Full/Lite
 schemas and CLI behavior remain unchanged. These are instruction improvements;
 no fresh independent generation trial or measured token saving is claimed.
-Public Git publication and hosted CI must be verified on GitHub separately.
+The public repository and hosted CI were verified separately from local checks.
 
 ## 3.1.0 Verification Scope
 
@@ -32,7 +32,7 @@ The worked owner handoff reuses the Full PRD diagram exactly and cites existing
 requirement IDs. The export test runs both preview commands from another cwd.
 These checks prove extraction and CLI behavior, not that every model follows
 prompt instructions. No new independent model-generation trial or Mermaid
-renderer execution was performed; hosted CI remains unverified.
+renderer execution was performed; hosted CI had not run at that stage.
 
 ## Upstream Comparison — 2026-09-27
 
