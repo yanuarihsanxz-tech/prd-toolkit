@@ -193,7 +193,7 @@ Run the automated structural and regression suite first:
 
 ```bash
 node scripts/validate-toolkit.mjs --json
-node --test tests
+node --test
 ```
 
 The toolkit validator must stay dependency-free, emit stable finding codes,

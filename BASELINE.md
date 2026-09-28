@@ -148,7 +148,7 @@ Equivalent dependency-free commands:
 
 ```bash
 node scripts/validate-toolkit.mjs --json
-node --test tests
+node --test
 ```
 
 A passing result proves only the declared structural and unit contracts. It

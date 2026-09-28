@@ -9,7 +9,10 @@ Toolkit versions follow the policy in `BASELINE.md`.
 
 ## [Unreleased]
 
-No changes are recorded beyond the `3.1.2` local baseline.
+### Fixed
+
+- Use Node's test discovery so the check command works on supported Node versions.
+- Check POSIX state-file permissions only on systems that expose POSIX mode bits.
 
 ## [3.1.2] - 2026-09-27
 

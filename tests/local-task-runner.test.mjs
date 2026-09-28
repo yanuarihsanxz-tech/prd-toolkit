@@ -273,7 +273,9 @@ test("one plan approval covers ordinary local milestone transitions", (t) => {
     state.event_log.map((event) => event.sequence),
     Array.from({ length: state.event_log.length }, (_, index) => index + 1),
   );
-  assert.equal(fs.statSync(path.join(directory, ".prd/task-state.json")).mode & 0o777, 0o600);
+  if (process.platform !== "win32") {
+    assert.equal(fs.statSync(path.join(directory, ".prd/task-state.json")).mode & 0o777, 0o600);
+  }
 });
 
 test("a layer label change inside one phase is informational, not an approval gate", (t) => {

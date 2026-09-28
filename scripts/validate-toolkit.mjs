@@ -419,8 +419,8 @@ export function validateVersionContract(packageJson, baselineSource, changelogSo
   const expectedScripts = {
     "validate:prd": "node scripts/validate-prd.mjs",
     "validate:toolkit": "node scripts/validate-toolkit.mjs --json",
-    test: "node --test tests",
-    check: "node scripts/validate-toolkit.mjs --json && node --test tests",
+    test: "node --test",
+    check: "node scripts/validate-toolkit.mjs --json && node --test",
   };
   if (!packageJson || typeof packageJson !== "object" || Array.isArray(packageJson)) {
     add("VERSION_PACKAGE_OBJECT", "package.json must be an object.");
