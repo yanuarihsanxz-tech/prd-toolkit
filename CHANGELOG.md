@@ -11,6 +11,8 @@ Toolkit versions follow the policy in `BASELINE.md`.
 
 ### Changed
 
+- Add a practical README table and a brief-to-specification example showing
+  decisions, specialist routing, and the evidence a builder must collect.
 - Define efficiency as delivered scope, quality and reliability relative to
   total lifecycle effort, including debugging, rework and maintenance.
 - Make specification depth depend on decision value, uncertainty and failure

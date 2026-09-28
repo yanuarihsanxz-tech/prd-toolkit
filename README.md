@@ -105,6 +105,42 @@ An existing PRD is reviewed rather than overwritten when no change is requested.
 Only a missing material decision or ambiguous target folder needs clarification.
 The host must be able to read the toolkit files; a mention is not an installation.
 
+## What Changes In Practice
+
+These examples show what a useful specification should clarify. The PRD records
+the decisions and planned checks; a separately requested build must supply the
+runtime evidence. Include each concern only when it applies to the product.
+
+| Situation in the brief | What PRD Maker should clarify | Evidence the builder should collect |
+|---|---|---|
+| **Unclear scope:** "Build a dashboard." | Who uses it, which decisions it supports, required actions, and exclusions | Agreed workflows work; excluded features have not displaced required scope |
+| **Vague UI/UX:** "Make it polished and mobile-friendly." | Core journeys, content hierarchy, interaction states, accessibility needs, supported layouts, and any specialist design route | Inspect actual layouts and exercise core actions with appropriate input methods |
+| **Hidden failure cases:** "Save my favorites." | Persistence location, reload behavior, malformed data, and what happens when storage is unavailable | Save/reload succeeds; applicable failure cases produce the specified recovery |
+| **Domain logic:** "Calculate the result." | Inputs, units, formulas, rounding, boundaries, and unresolved domain assumptions | Compare results with independent expected values and relevant edge cases |
+| **Existing-product rework:** "Change this flow." | Current behavior, requested differences, dependencies, and behavior to preserve | Verify the changed flow and relevant regression paths |
+| **Specialist tools:** "Use a design or security tool." | Required capability, available route or fallback, and the acceptance evidence it must support | Demonstrate the required outcome; a tool name or successful launch is insufficient |
+| **Handoff or later changes:** "Another agent will build it." | Scope, decisions, stable requirement IDs, interfaces, and acceptance criteria in the PRD | The builder can trace implementation and checks to the agreed requirements without reconstructing the chat |
+
+### A Brief-To-Specification Example
+
+**Brief:** "Let visitors save favorite assets."
+
+Suppose the discussion establishes browser-local storage, no login, and an
+explicit recovery action for unreadable saved data. A useful PRD then states:
+
+> Visitors can add and remove favorites. Saved selections persist after a page
+> reload in the same browser. If saved data cannot be read, the app explains the
+> problem and offers a reset action. Resetting requires the visitor's action.
+
+The builder can test add, remove, reload, and the recovery action. If the intended
+product instead needs account sync, that decision changes the specification.
+The toolkit must resolve material ambiguity rather than invent a storage model.
+
+This is an illustrative specification, not a measured bug-reduction result.
+See the [complete app PRD](examples/app-prd-example.md), the
+[tool PRD](examples/tool-prd-example.md), and the
+[summary and flowchart handoff](examples/prd-handoff-example.md) for worked examples.
+
 ## After The PRD
 
 When you choose to build, hand PRD.md to a separate coding conversation and
