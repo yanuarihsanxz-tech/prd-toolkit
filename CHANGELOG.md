@@ -15,6 +15,8 @@ Toolkit versions follow the policy in `BASELINE.md`.
 - Check POSIX state-file permissions only on systems that expose POSIX mode bits.
 - Clarify the coordinator role, specialist-tool boundaries, optional Reasonix
   adapter, and public checkout command in first-use documentation.
+- Add a one-sentence GitHub-link entry and explain the lean-by-default workflow
+  without claiming universal time or token savings.
 
 ## [3.1.2] - 2026-09-27
 

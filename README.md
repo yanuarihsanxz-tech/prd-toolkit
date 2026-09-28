@@ -9,21 +9,39 @@ Use any local checkout path. Substitute your actual toolkit path wherever the
 examples show `/absolute/path/to/prd-toolkit`. For a clean Git checkout, follow
 the [distribution guide](docs/DISTRIBUTION.md).
 
-## Role And Specialist Tools
+## What This Toolkit Does
 
-PRD Maker coordinates product specification at the start of a project. It turns
+**PRD Maker is the specification coordinator** at the start of a project. It turns
 the agreed outcome into requirements, acceptance criteria, a product flow, and a
 plan for what evidence the eventual builder must collect. It names specialist
 capabilities when the product needs them, such as UI/UX design, accessibility,
 browser testing, security, or domain-specific research. The builder then uses
 available specialist tools and project code to deliver and verify those parts.
 
-This toolkit does not contain those specialist tools or install them. A PRD that
-mentions UI/UX does not by itself produce a polished interface. The agent must
-check which tools are actually available, choose an appropriate route or fallback,
+**Specialist tools remain conditional.** This toolkit does not contain or install
+them. A PRD that mentions UI/UX does not by itself produce a polished interface.
+The agent must check which tools are actually available, choose an appropriate route or fallback,
 and leave any unmet requirement unverified rather than claim it is done.
 
-## Get Started
+**Lean by default.** Reuse decisions from the conversation, read only the selected
+operation, scale Full/Lite detail to the product, and avoid duplicate plans,
+diagrams, or tool installations. These rules aim to reduce avoidable time and
+token use; savings vary by project and are not guaranteed.
+
+## Start With A Link, Clone, Or ZIP
+
+After discussing the product in a coding agent that can access GitHub and local
+files, one sentence is enough:
+
+```text
+Use PRD Maker from https://github.com/yanuarihsanxz-tech/prd-toolkit.git for this project.
+```
+
+The agent should fetch the **complete repository**, read its `SKILL.md`, use the
+current conversation as input, and stop after the validated PRD, summary, and
+product flowchart. A URL mention alone is a reference; it does not grant network
+access, install a skill, or authorize a build. If the agent cannot fetch files,
+clone or download the ZIP yourself and point it at the local `SKILL.md`.
 
 Download this repository using **Code → Download ZIP**, or copy the clone URL
 from the repository's **Code** menu. For this public repository:
@@ -48,7 +66,7 @@ product requirements. The agent must have file access; generation is performed
 by your coding host, not by the validator CLI. Keep your target project in its
 own directory. Unfilled templates are starting points, not finished PRDs.
 
-## Use It After Your Discussion
+## Use A Local Checkout After Your Discussion
 
 In your target project's conversation, discuss the idea, rework or bug until the
 intended outcome is clear. Then mention this checkout and say:
