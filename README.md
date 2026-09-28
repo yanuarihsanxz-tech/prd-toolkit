@@ -23,20 +23,20 @@ them. A PRD that mentions UI/UX does not by itself produce a polished interface.
 The agent must check which tools are actually available, choose an appropriate route or fallback,
 and leave any unmet requirement unverified rather than claim it is done.
 
-**Efficiency means value across the project lifecycle.** Judge the delivered
-scope, quality, and reliability against the total time, tokens, money, and human
-effort spent on planning, building, testing, debugging, revisions, and maintenance.
-More work upfront can be worthwhile when it clarifies a costly decision, exposes
-a failure case, or prevents building the wrong thing.
+**Efficiency means putting effort where the product needs it.** The goal is the
+agreed outcome at its required quality, with evidence that it works. A project
+may need substantial research, design, specialist tools, implementation, and
+testing. Another may need only a compact specification and a direct build. Time,
+tokens, money, and human attention are resources to allocate, not numbers the
+toolkit tries to minimize independently.
 
-**Proportional effort, complete outcomes.** Invest detail where uncertainty or
-failure consequences justify it. Reuse settled decisions and avoid duplicated
-work. A short PRD can leave expensive gaps; a long PRD can add ceremony. Project
-size, document length, and initial speed alone do not establish value.
-
-The intended benefit is better decisions and less avoidable rework. Measure it
-against comparable scope and quality over the whole workflow. This toolkit does
-not guarantee fewer bugs, lower total cost, or any fixed saving.
+**Proportional planning serves the whole result.** Clarify decisions and failure
+paths that matter, preserve required behavior, and choose verification suited
+to the product. Reuse settled context and avoid work that adds no decision or
+evidence value. Neither the shortest PRD nor the cheapest first build is a
+success when it misses the user's outcome. The toolkit makes no universal
+promise about effort or product quality; both depend on the project and its
+execution.
 
 ## Start With A Link, Clone, Or ZIP
 
@@ -136,7 +136,7 @@ The builder can test add, remove, reload, and the recovery action. If the intend
 product instead needs account sync, that decision changes the specification.
 The toolkit must resolve material ambiguity rather than invent a storage model.
 
-This is an illustrative specification, not a measured bug-reduction result.
+This illustrates a decision and its evidence path; it is not a product guarantee.
 See the [complete app PRD](examples/app-prd-example.md), the
 [tool PRD](examples/tool-prd-example.md), and the
 [summary and flowchart handoff](examples/prd-handoff-example.md) for worked examples.

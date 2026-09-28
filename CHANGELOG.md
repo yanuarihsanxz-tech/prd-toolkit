@@ -11,12 +11,12 @@ Toolkit versions follow the policy in `BASELINE.md`.
 
 ### Changed
 
+- Reframe efficiency as appropriate investment toward the required outcome and
+  evidence, without treating fewer tokens, time, bugs, or cost as universal goals.
 - Add a practical README table and a brief-to-specification example showing
   decisions, specialist routing, and the evidence a builder must collect.
-- Define efficiency as delivered scope, quality and reliability relative to
-  total lifecycle effort, including debugging, rework and maintenance.
 - Make specification depth depend on decision value, uncertainty and failure
-  consequences; upfront speed or token count alone is not the objective.
+  consequences while preserving the requested outcome.
 
 ### Fixed
 
@@ -24,8 +24,7 @@ Toolkit versions follow the policy in `BASELINE.md`.
 - Check POSIX state-file permissions only on systems that expose POSIX mode bits.
 - Clarify the coordinator role, specialist-tool boundaries, optional Reasonix
   adapter, and public checkout command in first-use documentation.
-- Add a one-sentence GitHub-link entry and explain the lean-by-default workflow
-  without claiming universal time or token savings.
+- Add a one-sentence GitHub-link entry and explain proportional toolkit use.
 
 ## [3.1.2] - 2026-09-27
 

@@ -49,12 +49,13 @@ Resolve the actual workflow, success criteria, dependencies, and material failur
 cases. Do not apply a fixed reasoning ritual or presume auth, databases, queues,
 cloud hosting, agents, or enterprise controls are needed.
 
-Allocate effort by the value of the decision and consequences of getting it
-wrong. Additional detail is justified when it clarifies acceptance, exposes a
-material failure path, or reduces likely implementation and maintenance rework.
-Assess efficiency through the complete verified outcome and total project
-effort, including debugging and revisions. Do not infer overengineering from
-document length or planning time alone, or promise bug reduction without evidence.
+Allocate effort by the product's desired outcome, material decisions, uncertainty,
+and consequences of failure. Give acceptance, domain rules, interaction design,
+specialist capability, and verification the depth they need. Keep simple matters
+brief when extra detail adds no decision or evidence value. The goal is a complete,
+usable specification for this product, not a shorter document, faster first
+draft, lower token count, or cheaper initial build. Do not infer overengineering
+from document length or planning time alone.
 
 - Define each requirement and acceptance criterion once using stable FR-###,
   NFR-###, and AC-### IDs. Elsewhere reference IDs and local headings instead of
