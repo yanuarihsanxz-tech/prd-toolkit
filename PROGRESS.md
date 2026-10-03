@@ -8,7 +8,7 @@ PROGRESS.md using templates/project-progress.md.
 | Local version | 3.2.0 |
 | Current work | Public 3.2.0 update: change contracts, authority format, portable distribution and synchronized onboarding |
 | Status | Publication candidate passes 113 tests (no skips), all 12 structural regression cases and zero toolkit findings on 2026-10-03 |
-| Publication | Owner authorized the 3.2.0 source push on 2026-10-03; publication and hosted checks are being verified separately from local delivery |
+| Publication | 3.2.0 source published to public main on 2026-10-03; exact source commit and hosted CI verified below |
 | Prior verification | 3.0.3: 40 tests and 12 representative generator cases passed on macOS arm64 / Node 26.8.1 |
 | Prior hosted CI | 9/9 jobs passed on Linux, macOS and Windows with Node 20, 22 and 24: https://github.com/yanuarihsanxz-tech/prd-toolkit/actions/runs/36367364046 |
 | Prior public inventory | https://github.com/yanuarihsanxz-tech/prd-toolkit; 70 canonical files verified on GitHub on 2026-09-28 |
@@ -97,3 +97,11 @@ Fresh publication-candidate checks: `npm run check` passed 113/113 tests with
 zero skips, all 12 structural regression cases and no toolkit findings on macOS
 arm64 / Node 26.8.1. `git diff --check` passed. The original local ZIP verified
 against its manifest before publication-documentation edits.
+
+Public source commit: `19445796ca0e2981081cf898adab8c8b872d0007`. GitHub
+Actions [run 37081441088](https://github.com/yanuarihsanxz-tech/prd-toolkit/actions/runs/37081441088)
+passed all nine jobs: Linux, macOS and Windows with Node 20, 22 and 24. The
+public tree contains the expected 79 canonical files. Repository visibility is
+public, and its description now names the foreman, specialist routing, revision
+comparison and verifiable builder handoff. These checks establish publication
+and toolkit behavior; they do not establish universal model or target-app quality.
