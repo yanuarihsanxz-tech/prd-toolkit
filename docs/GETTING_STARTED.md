@@ -6,7 +6,7 @@ Start in the target project folder, not the toolkit folder. Use the capable
 model and coding host you already have. Models help reason; the host supplies
 filesystem, terminal, browser, and other execution capabilities.
 
-**Conversation A, first:** say `Research and brainstorm only. Do not generate a
+**Conversation A, if material decisions remain:** say `Research and brainstorm only. Do not generate a
 PRD or build yet.` Work through the user outcome, scope, constraints, and material
 unknowns. Current claims should have primary-source evidence when needed.
 
@@ -62,12 +62,35 @@ from a runner checkpoint.
 
 ## Folder References And Installed Skills
 
-A directory reference asks the host to expose files. It does not install a skill
-or change the model/runtime. Codex discovers installed skills from its documented
-locations; project instructions follow directory scope. See official
-[skill discovery](https://learn.chatgpt.com/docs/build-skills) and
-[AGENTS.md discovery](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
-Those behaviors are host-dependent; this toolkit also works by explicit file read.
+A directory reference exposes toolkit files; it does not install a skill. The
+portable directory must include every canonical resource, not just SKILL.md.
+The skill name is `prd-maker`, so use that directory name for installation.
+
+From a verified checkout, export into a new project-local skill directory:
+
+```bash
+node /absolute/path/to/prd-toolkit/scripts/export-toolkit.mjs /absolute/path/to/target/.agents/skills/prd-maker
+node /absolute/path/to/target/.agents/skills/prd-maker/scripts/validate-toolkit.mjs --json
+```
+
+Codex documents project discovery from `.agents/skills` and supports symlinked
+skill directories. Start a new target chat and explicitly invoke `$prd-maker`,
+or ask to prepare a PRD. See [official Codex skill discovery](https://learn.chatgpt.com/docs/build-skills).
+
+For Claude Code, export instead to `target/.claude/skills/prd-maker`, then
+invoke `/prd-maker`. This path and invocation follow
+[Claude Code's skill documentation](https://code.claude.com/docs/en/skills).
+The [Agent Skills format](https://agentskills.io/specification) requires the
+skill name to match its parent directory. CLAUDE.md forwards maintainer
+instructions to AGENTS.md; it is not a second generation workflow.
+
+Exports refuse to overwrite an existing directory. For an update, export into
+a new staging directory, verify it, retain the old version for recovery and
+replace the installed directory deliberately. No host settings, credentials or
+model choice need changing. Explicit file invocation remains available when
+automatic discovery is unavailable. See [verification evidence](../evals/release-3.2.0.md)
+for which installation and generation paths were actually exercised; a documented
+path or copied directory alone does not prove host discovery.
 
 No Ponytail, Caveman, Honey, Reasonix, or DeepSeek Harness installation is required.
 The [research/tool policy](../prompts/RESEARCH_AND_TOOL_ROUTING.md) records which
@@ -82,7 +105,9 @@ node scripts/validate-prd.mjs /absolute/path/to/project/PRD.md --json
 ```
 
 Node.js 20+ is needed for these checks, with no package install. Structural
-preflight uses exit 0 for pass, 1 for findings, and 2 for missing input/access.
+preflight uses exit 0 for pass (warnings allowed), 1 for blocking/error findings,
+and 2 for invalid usage or missing input/access. `--help` and `-h` show usage;
+`--version` reports the toolkit version.
 A pass is not a factual score or product runtime proof. The agent also applies
 [the checklist](../prompts/PRD_VALIDATION_CHECKLIST.md) and reports unrun checks as
 UNVERIFIED. A text-only environment can generate text but cannot prove a build.

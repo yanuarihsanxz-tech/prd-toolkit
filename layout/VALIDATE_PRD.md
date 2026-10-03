@@ -30,6 +30,8 @@ instructions:
   - Use prompts/PRD_VALIDATION_CHECKLIST.md.
   - Validate metadata against schemas/prd-frontmatter.schema.json, including current_milestone <= total_milestones.
   - Verify unique FR-###, NFR-###, and AC-### IDs and complete traceability in both directions.
+  - For rework or bugs, review docs/CHANGE_CONTRACT.md: current evidence, preserved behavior/data/interfaces, affected IDs and delta table, retirement history, verification and original reproducer. If a baseline is available, run compare-prd.mjs with --json --fail-on-removal; review findings without editing either input.
+  - Apply docs/AUTHORITY_POLICY.md compatibility rules. A policy format match never proves session, host or runner authority.
   - Use the checklist's applicability rules and denominator formula exactly.
   - Report group subtotals, excluded N/A checks, the score, verdict, blockers, contradictions, and missing evidence.
   - Report the structural preflight separately; never convert its pass into a checklist score or readiness claim.

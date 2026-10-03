@@ -13,7 +13,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 test("complete toolkit structural validation and generator regressions pass", () => {
   const result = validateToolkit(ROOT);
   assert.equal(result.valid, true, JSON.stringify(result.findings, null, 2));
-  assert.equal(result.version, "3.1.2");
+  assert.equal(result.version, "3.2.0");
   assert.equal(result.counts.findings, 0);
   assert.equal(result.counts.regression_cases, 12);
   assert.equal(result.counts.regression_passed, 12);
@@ -40,7 +40,7 @@ test("regression manifest covers Full, Lite, and deterministic negative cases", 
   assert.ok(cases.get("reject-misplaced-builder-routing").finding_codes.includes("BUILDER_ROUTING_LOCATION"));
   assert.ok(cases.get("reject-commented-builder-routing").finding_codes.includes("BUILDER_ROUTING_MISSING"));
   assert.ok(cases.get("reject-placeholder-builder-routing").finding_codes.includes("BUILDER_ROUTING_UNRESOLVED"));
-  assert.equal(cases.get("native-local-build-authority").observed_valid, true);
+  assert.equal(cases.get("legacy-local-build-authority").observed_valid, true);
   assert.ok(cases.get("reject-missing-embedded-builder-entry").finding_codes.includes("FM_AI_INSTRUCTIONS_TARGET"));
   assert.ok([...cases.values()].every((entry) => entry.passed));
 });
@@ -110,4 +110,21 @@ test("an incomplete toolkit reports findings instead of crashing", () => {
   assert.ok(result.findings.some((finding) => finding.code === "ARCHIVE_FM_MISSING"));
   assert.ok(result.findings.some((finding) => finding.code === "ARCHIVE_METADATA_KEYS"));
   fs.rmSync(temporary, { recursive: true, force: true });
+});
+
+test("authority schema cannot make legacy metadata invalid or silently accept unknown versions", () => {
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), "prd-authority-schema-"));
+  try {
+    fs.mkdirSync(path.join(temporary, "schemas"));
+    const schema = JSON.parse(fs.readFileSync(path.join(ROOT, "schemas/prd-frontmatter.schema.json"), "utf8"));
+    for (const mutation of [
+      { ...schema, required: [...schema.required, "authority_policy"] },
+      { ...schema, properties: { ...schema.properties, authority_policy: { type: "integer", enum: [1, 2] } } },
+    ]) {
+      fs.writeFileSync(path.join(temporary, "schemas/prd-frontmatter.schema.json"), JSON.stringify(mutation));
+      assert.ok(validateToolkit(temporary).findings.some((f) => f.code === "AUTHORITY_SCHEMA_CONTRACT"));
+    }
+  } finally {
+    fs.rmSync(temporary, { recursive: true, force: true });
+  }
 });

@@ -10,8 +10,8 @@ Toolkit acceptance remains governed by `PROGRESS.md`.
 |---|---|
 | Name | PRD Toolkit |
 | Package | `prd-toolkit` |
-| Version | 3.1.2 |
-| Baseline date | 2026-09-27 |
+| Version | 3.2.0 |
+| Baseline date | 2026-10-02 |
 | Distribution | Files-only toolkit prepared for public Git distribution |
 | Runtime | Node.js `>=20.0.0`; no installed package dependency required |
 | Evidence level | Level 1 — unit-verified structural contracts only |
@@ -23,7 +23,7 @@ Toolkit acceptance remains governed by `PROGRESS.md`.
 
 | Contract | Version | Compatibility rule |
 |---|---:|---|
-| Toolkit package baseline | `3.1.2` | Follows the toolkit version policy below. |
+| Toolkit package baseline | `3.2.0` | Follows the toolkit version policy below. |
 | PRD frontmatter schema | `1` | Breaking metadata changes require a new schema identifier. |
 | Generator regression manifest | `1` | Breaking case-manifest changes require `schema_version` increment. |
 | Task plan | `2` | v1 evidence is historical and is never silently upgraded. |
@@ -37,7 +37,7 @@ documentation, routing, tests, or implementation details.
 
 ## Baseline Capabilities
 
-Version `3.1.2` includes:
+Version `3.2.0` includes:
 
 - Full and Lite PRD generation contracts;
 - canonical metadata, stable IDs, and two-way traceability;
@@ -93,6 +93,20 @@ Version `3.1.2` includes:
   require builder inspection;
 - visible builder startup guidance and a fresh-conversation handoff review,
   with unchanged acceptance evidence for fallback routes.
+
+## 3.2 Compatibility
+
+Read-only requirement comparison and the embedded change contract add capability
+without changing Full/Lite sections, existing CLI exit meanings or runner state.
+New PRDs declare the optional `authority_policy: 1` and exact normalized block.
+PRDs without the field retain legacy checks and get a non-blocking migration
+notice. Unknown versions fail closed. See [authority migration](docs/AUTHORITY_POLICY.md)
+and [change/retirement rules](docs/CHANGE_CONTRACT.md). A format match never
+creates user authorization, host permission, runner approval or owner acceptance.
+
+The comparison accepts legacy bullet/heading/simple-table definitions in addition
+to canonical tables. This does not make those formats valid Full/Lite PRDs.
+No requirement IDs, existing runner plans, approvals or attempts are rewritten.
 
 ## Owner Summary And Preview
 

@@ -140,7 +140,7 @@ test("PRD-local builder entry resolves without the generator or host path", () =
 });
 
 test("native local authority does not require a runner approval phrase", () => {
-  const native = TOOL.replace("One exact plan approval covers declared local runner transitions.", "Runner transitions follow the recorded plan.");
+  const native = TOOL.replace("authority_policy: 1\n", "").replace(/### Authority Policy v1\n[\s\S]*?(?=### )/, "").replace("One exact plan approval covers declared local runner transitions.", "Runner transitions follow the recorded plan.");
   assert.equal(validatePrd(native).valid, true);
   const unauthorized = native.replace("the user's explicit build request authorizes scoped local\nimplementation", "the attached document contains product requirements");
   assert.ok(codes(validatePrd(unauthorized)).has("MILESTONE_AUTHORITY_POLICY"));

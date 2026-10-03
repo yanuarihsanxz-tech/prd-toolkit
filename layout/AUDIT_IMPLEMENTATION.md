@@ -36,7 +36,9 @@ output_file: @project/IMPLEMENTATION_AUDIT.md
 instructions:
   - Read the complete PRD, target AGENTS.md, current repository, relevant tests, progress, and decisions. Read TASKS.json and task state only if they exist; native builds do not require them.
   - Run `node <toolkit-root>/scripts/validate-prd.mjs @project/PRD.md --json` and keep structural evidence separate from implementation evidence.
-  - Build the expected ID set from every FR-###, NFR-###, and AC-### in the PRD. Do not sample or omit IDs.
+  - Build the expected ID set from every FR-###, NFR-###, and AC-### in the PRD. Distinguish active definitions from delta/retirement records using docs/CHANGE_CONTRACT.md; do not omit either set from the audit.
+  - For changes, audit every added/modified ID, affected unchanged behavior, preserved interfaces/data and every removed/retired ID. Verify the intended removal and migration without silently requiring retired behavior to remain active; retain its history and authority evidence. Compare available baseline and current PRDs and explain all removals, reactivations and dropped retirement records.
+  - For bugs, rerun the original reproducer with its original inputs and verify the repaired result plus affected preserved behavior. A new passing test does not replace the original reproduction.
   - For each ID, record expected behavior, implementation surface, current verification evidence, and exactly one status: VERIFIED, PARTIAL, NOT_IMPLEMENTED, UNVERIFIED, or N/A - [specific reason].
   - VERIFIED requires direct current evidence from the exact inspected source state. File presence, compilation, an old task completion, or a mock alone is insufficient when runtime behavior is claimed.
   - Run the full applicable regression suite and real behavioral/manual product checks authorized for the local environment. Record exact commands or interactions, result, environment, and limitations.

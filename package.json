@@ -1,14 +1,15 @@
 {
   "name": "prd-toolkit",
-  "version": "3.1.2",
+  "version": "3.2.0",
   "private": true,
-  "description": "Deterministic, files-only PRD generation, validation, governance, and product-first milestone execution toolkit.",
+  "description": "Portable PRD foreman for AI agents: testable specifications, specialist routing, deterministic structural validation and revision comparison.",
   "type": "module",
   "scripts": {
     "validate:prd": "node scripts/validate-prd.mjs",
     "validate:toolkit": "node scripts/validate-toolkit.mjs --json",
     "test": "node --test",
-    "check": "node scripts/validate-toolkit.mjs --json && node --test"
+    "check": "node scripts/validate-toolkit.mjs --json && node --test",
+    "compare:prd": "node scripts/compare-prd.mjs"
   },
   "engines": {
     "node": ">=20.0.0"

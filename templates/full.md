@@ -8,6 +8,7 @@ type: "app"
 tech_stack:
   - "[Technology]"
 created: "YYYY-MM-DD"
+authority_policy: 1
 ai_instructions: "#builder-capability-routing-contract"
 ---
 
@@ -56,6 +57,13 @@ Use Mermaid for diagrams. Do not leave TBD/TODO text in a finished PRD.
 | Data Sensitivity | [public/internal/private/regulated] |
 
 ## 2. Requirements
+
+<!-- For existing-product changes or bugs, embed the Change Contract here or
+in Overview. Read docs/CHANGE_CONTRACT.md while generating, then copy the actual
+current evidence, requested change, preserved behavior/interfaces/data, affected
+IDs and ID | Status | Note table, changed/preserved verification, and original
+bug reproducer into the PRD. Keep continuing IDs and retirement history. The
+finished PRD must not require access to this toolkit or the prior conversation. -->
 
 ### Review Focus
 
@@ -318,6 +326,14 @@ files. Use the responsibility table; add a tree only if nesting needs explanatio
 Live state/evidence belongs in PROGRESS.md, referencing the milestone numbers
 above. Keep PRD status metadata synchronized. Follow the embedded builder
 contract for continuation and verification; do not duplicate its procedure.
+
+### Authority Policy v1
+
+For a new native build, the user's explicit build request authorizes scoped local implementation.
+
+One exact plan approval covers declared local runner transitions.
+
+Pause only for a blocking decision, material scope change, or a genuine new authority boundary: external writes, destructive actions, purchases, credential changes, deployment, production, or owner acceptance.
 
 ### Traceability Matrix
 

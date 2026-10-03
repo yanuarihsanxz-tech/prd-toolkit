@@ -12,6 +12,7 @@ tech_stack:
   - "Credential-based authentication"
   - "Docker on VPS"
 created: "2026-07-04"
+authority_policy: 1
 ai_instructions: "#builder-capability-routing-contract"
 ---
 
@@ -580,6 +581,14 @@ warehouse-inventory/
 | 1 | Runnable Inventory Experience | The local app opens in a browser and supports login, dashboard, and product CRUD with persistent sample data, so the owner can try the primary interface early. | ⬜ Not Started |
 | 2 | Complete Connected Inventory Workflow | Inbound/outbound batch stock, movement history, validation, and transactional persistence work end to end through the finished interface. | ⬜ Not Started |
 | 3 | Integrated Audit And Polish | Full applicable regression and a real browser walkthrough cover login, dashboard, product CRUD, inbound/outbound stock, history, and material failure states; in-scope defects are fixed and affected evidence is rerun. | ⬜ Not Started |
+
+### Authority Policy v1
+
+For a new native build, the user's explicit build request authorizes scoped local implementation.
+
+One exact plan approval covers declared local runner transitions.
+
+Pause only for a blocking decision, material scope change, or a genuine new authority boundary: external writes, destructive actions, purchases, credential changes, deployment, production, or owner acceptance.
 
 ### Execution And Authority Rule
 

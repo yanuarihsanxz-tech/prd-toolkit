@@ -90,6 +90,24 @@ Any blocker forces `Major gaps` until fixed:
 - A fallback weakens an acceptance criterion or substitutes mock/static evidence
   for required live behavior without leaving the affected IDs UNVERIFIED.
 
+## Change And Authority Review
+
+For reworks and bug fixes, apply [the change contract](../docs/CHANGE_CONTRACT.md).
+Review current evidence and its limits, affected IDs and delta table, preservation
+of interfaces/data/behavior, retirement history, and checks for changed and
+affected preserved behavior. Bugs retain the original reproducer and expected
+repaired result. Compare an available baseline with `compare-prd.mjs`; review
+removals even when recorded, reactivated IDs and lost retirement records.
+The comparison is textual/structural; unchanged text does not prove preserved
+runtime behavior. Missing these material contracts or reusing retired IDs is a
+mandatory blocker, regardless of the score.
+
+Apply [authority-policy compatibility](../docs/AUTHORITY_POLICY.md). A format
+match never proves real user authorization, host permission, runner approval or
+owner acceptance. Legacy documents receive a notice, not automatic migration.
+The score thresholds are review heuristics, not outcome-calibrated predictions
+of implementation success; report blockers and evidence limits explicitly.
+
 ## Automated Structural Preflight
 
 When the PRD exists as a local file and Node.js is available, run this before
@@ -109,8 +127,8 @@ Builder routing must be one visible subsection inside Architecture, with its
 own six-column table, concrete cells, and local availability instructions.
 Comments, fenced examples, and tables elsewhere cannot satisfy that contract.
 
-- Exit `0`: those structural checks passed.
-- Exit `1`: one or more validation findings exist.
+- Exit `0`: those structural checks passed; non-blocking warnings may exist.
+- Exit `1`: one or more blocker/error findings exist.
 - Exit `2`: usage, file access, or the bounded input budget prevented a result.
 
 Preserve the emitted finding codes and file/line evidence in the report. Never

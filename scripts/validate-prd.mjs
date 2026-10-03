@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { checkAuthorityPolicy, AUTHORITY_FORMAT_LIMIT } from "./authority-policy.mjs";
 
 const FULL_SECTIONS = [
   "Overview",
@@ -255,7 +256,7 @@ function validateFrontmatter(frontmatter, expectedType, findings) {
     }
   }
   for (const key of actualKeys) {
-    if (!REQUIRED_FRONTMATTER_KEYS.includes(key)) {
+    if (!REQUIRED_FRONTMATTER_KEYS.includes(key) && key !== "authority_policy") {
       findings.push({
         code: "FM_ADDITIONAL_KEY",
         severity: "blocker",
@@ -592,7 +593,7 @@ function validateIdsAndTraceability(lines, tables, findings) {
   };
 }
 
-function validateMilestones(source, tables, frontmatter, findings) {
+function validateMilestones(tables, frontmatter, findings) {
   const milestoneTables = tables.filter((table) => {
     const headers = table.header.map((cell) => cell.toLowerCase());
     return headers.includes("#") && headers.includes("milestone") && headers.includes("done when") && headers.includes("status");
@@ -644,11 +645,6 @@ function validateMilestones(source, tables, frontmatter, findings) {
     }
   }
 
-  const hasPlanContinuation = /one exact(?:-| )plan (?:owner )?approval covers|exact plan approval covers|plan approval covers (?:all|every) declared local non-production|explicit (?:user |future )?build request authorizes scoped local/i.test(source.replace(/\s+/g, " "));
-  const hasAuthorityBoundary = /genuine (?:new )?(?:authority\s+boundary|[\s\S]{1,150}?authority\s+boundary)|production(?:\/| or )final owner acceptance|production activation(?:,? or| and) final owner acceptance/i.test(source);
-  if (!hasPlanContinuation || !hasAuthorityBoundary) {
-    findings.push({ code: "MILESTONE_AUTHORITY_POLICY", severity: "blocker", message: "Milestones must name local build authority (explicit build request for native mode or exact plan approval for runner mode) and preserve genuine new authority, production, and final-acceptance boundaries.", line: 1 });
-  }
   return milestoneTables[0].rows.length;
 }
 
@@ -769,7 +765,8 @@ export function validatePrd(source, options = {}) {
   const mermaid = validateFencesAndMermaid(lines, findings);
   const tables = parseTables(visibleLines);
   const coverage = validateIdsAndTraceability(visibleLines, tables, findings);
-  const milestones = validateMilestones(visibleSource, tables, parsed.data, findings);
+  findings.push(...checkAuthorityPolicy(visibleSource, parsed.data));
+  const milestones = validateMilestones(tables, parsed.data, findings);
   validateCoreContent(visibleSource, type, findings);
 
   const ordered = sortFindings(findings);
@@ -796,6 +793,7 @@ export function validatePrd(source, options = {}) {
     },
     limitations: [
       "This validator proves deterministic structure and traceability only.",
+      AUTHORITY_FORMAT_LIMIT,
       "Product correctness, feasibility, evidence truth, and checklist scoring still require evidence-based human or agent review.",
       "Routing checks validate visible contract structure, not live tool availability, fallback equivalence, or successful builder execution.",
     ],
@@ -804,7 +802,11 @@ export function validatePrd(source, options = {}) {
 }
 
 function usage() {
-  return "Usage: node scripts/validate-prd.mjs <prd.md> [--expect-type app|tool] [--json]";
+  return `Usage: node scripts/validate-prd.mjs <prd.md> [--expect-type app|tool] [--json]
+       node scripts/validate-prd.mjs --help | -h | --version
+
+Deterministic structural validation; no model generation or authorization check.
+Exit codes: 0 valid (warnings allowed); 1 validation failed; 2 usage or input error.`;
 }
 
 function parseArgs(argv) {
@@ -817,7 +819,7 @@ function parseArgs(argv) {
       if (!new Set(["app", "tool"]).has(value)) throw new Error("--expect-type must be app or tool");
       parsed.expectedType = value;
       index += 1;
-    } else if (arg.startsWith("--")) throw new Error(`Unknown option ${arg}`);
+    } else if (arg.startsWith("--") || arg === "-h") throw new Error(`Unknown option ${arg}`);
     else if (parsed.file) throw new Error("Exactly one PRD path is allowed");
     else parsed.file = arg;
   }
@@ -840,6 +842,12 @@ function renderText(result) {
 }
 
 export function runCli(argv = process.argv.slice(2)) {
+  if (argv.length === 1 && ["--help", "-h", "--version"].includes(argv[0])) {
+    console.log(argv[0] === "--version"
+      ? JSON.parse(fs.readFileSync(new URL("../package.json", import.meta.url), "utf8")).version
+      : usage());
+    return 0;
+  }
   let args;
   try {
     args = parseArgs(argv);
@@ -871,5 +879,5 @@ export function runCli(argv = process.argv.slice(2)) {
   return result.valid ? 0 : 1;
 }
 
-const isMain = process.argv[1] && fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url);
+const isMain = process.argv[1] && fs.existsSync(process.argv[1]) && fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) process.exitCode = runCli();

@@ -54,6 +54,11 @@
     "ai_instructions": {
       "type": "string",
       "minLength": 1
+    },
+    "authority_policy": {
+      "type": "integer",
+      "enum": [1],
+      "description": "Optional fixed authority format version. Absence selects legacy checks, not authorization."
     }
   }
 }

@@ -31,7 +31,11 @@ instructions:
   - Validate metadata against schemas/prd-frontmatter.schema.json.
   - Apply prompts/RELIABILITY_GUIDE.md only where relevant.
   - Preserve approved requirements, decisions, compatibility, and safety rules.
-  - Normalize requirements to unique FR-### and NFR-### IDs and acceptance criteria to unique AC-### IDs without silently changing approved behavior.
+  - Read docs/CHANGE_CONTRACT.md. Before editing, retain the original PRD in an existing immutable revision or a local temporary snapshot; record its source identity. This snapshot is comparison evidence, not another active specification.
+  - For existing-product changes or bugs, embed the change contract in Overview or Requirements. Include current evidence limits, requested change, preserved behavior/interfaces/data, affected FR/NFR/AC IDs, the ID | Status | Note delta table, changed/preserved verification and the original bug reproducer.
+  - Keep IDs for continuing behavior. Never renumber to close gaps, reuse retired IDs, or drop retirement history. Migrate legacy ID formats only through a documented explicit mapping that preserves meaning.
+  - After editing, run `node <toolkit-root>/scripts/compare-prd.mjs <baseline-prd> @project/PRD.md --json --fail-on-removal`. Exit 1 requires review of each removal and retirement record; it is not permission to remove behavior. Exit 2 means no trustworthy comparison. Review reactivated IDs, lost retirement history, changed AC evidence and the non-semantic limits.
+  - Validate unique FR-### and NFR-### requirement IDs and AC-### acceptance IDs without changing continuing IDs or approved behavior.
   - Rewrite ambiguous event, state, fault, and timing criteria into selective EARS-style `WHEN/WHILE/IF/WHERE ... THE SYSTEM SHALL ...` wording when it improves observability; do not churn already testable criteria.
   - Fix confirmed ambiguity, two-way traceability, contract, and verification gaps.
   - Reject additions that increase complexity without measurable value.

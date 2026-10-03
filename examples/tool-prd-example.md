@@ -14,6 +14,7 @@ tech_stack:
   - "ngrok"
   - "Discord bot"
 created: "2026-07-04"
+authority_policy: 1
 ai_instructions: "#builder-capability-routing-contract"
 ---
 
@@ -223,6 +224,14 @@ current progress. Deployment and final owner acceptance are separate claims.
 | 1 | Runnable Local Workflow | Build source/normalization/delivery contracts plus Google Docs intake in delivery-disabled mode. | An authorized fixture enters through the real intake path, produces one idempotent normalized decision across repeated runs, and makes zero external deliveries. | ⬜ Not Started |
 | 2 | Complete Connected Delivery | Add authorized Discord delivery, optional Kanban routing, destination reconciliation, bounded retries, resource controls, and operator-visible failures. | Authorized fixtures deliver exactly once to enabled destinations; disabled and failure paths create no duplicate or false-success state. | ⬜ Not Started |
 | 3 | Integrated End-To-End Audit | Connect authorized voice/Docs intake, normalization, core delivery, optional delivery, retention, cleanup, and source-state receipts; run full applicable regression and a real operator walkthrough. | The core voice-to-Discord flow and material failure paths pass against one source fingerprint, in-scope defects are fixed and retested, and optional Kanban status cannot disprove core health. | ⬜ Not Started |
+
+### Authority Policy v1
+
+For a new native build, the user's explicit build request authorizes scoped local implementation.
+
+One exact plan approval covers declared local runner transitions.
+
+Pause only for a blocking decision, material scope change, or a genuine new authority boundary: external writes, destructive actions, purchases, credential changes, deployment, production, or owner acceptance.
 
 ### Runtime Checks
 

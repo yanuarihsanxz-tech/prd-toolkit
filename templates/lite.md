@@ -8,6 +8,7 @@ type: "tool"
 tech_stack:
   - "[Technology]"
 created: "YYYY-MM-DD"
+authority_policy: 1
 ai_instructions: "#builder-capability-routing-contract"
 ---
 
@@ -43,6 +44,13 @@ Do not add app-only sections unless the tool truly has a user-facing UI.
 | Outputs | [Files, API calls, messages, records, notifications] |
 
 ## 2. Requirements
+
+<!-- For existing-product changes or bugs, embed the Change Contract here or
+in Overview. Read docs/CHANGE_CONTRACT.md while generating, then copy the actual
+current evidence, requested change, preserved behavior/interfaces/data, affected
+IDs and ID | Status | Note table, changed/preserved verification, and original
+bug reproducer into the PRD. Keep continuing IDs and retirement history. The
+finished PRD must not require access to this toolkit or the prior conversation. -->
 
 ### Review Focus
 
@@ -156,6 +164,14 @@ Deployment and final owner acceptance are separate claims.
 | 1 | [Milestone] | [Tasks] | [Concrete proof] | ⬜ Not Started |
 | 2 | [Milestone] | [Tasks] | [Concrete proof] | ⬜ Not Started |
 | 3 | [Milestone] | [Tasks] | [Concrete proof] | ⬜ Not Started |
+
+### Authority Policy v1
+
+For a new native build, the user's explicit build request authorizes scoped local implementation.
+
+One exact plan approval covers declared local runner transitions.
+
+Pause only for a blocking decision, material scope change, or a genuine new authority boundary: external writes, destructive actions, purchases, credential changes, deployment, production, or owner acceptance.
 
 ### Runtime Checks
 

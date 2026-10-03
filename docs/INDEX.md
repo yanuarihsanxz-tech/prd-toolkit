@@ -33,6 +33,8 @@ state.
 | Generate a PRD | [Generate layout](../layout/GENERATE_PRD.md) | [generator prompt](../prompts/PRD_GENERATOR_PROMPT.md) and selected template |
 | Understand the final product handoff | [Worked handoff](../examples/prd-handoff-example.md) | Generator's Owner Summary And Product Flow contract and read-only preview command |
 | Validate a PRD | [Validate layout](../layout/VALIDATE_PRD.md) | [structural validator](../scripts/validate-prd.mjs) and [validation checklist](../prompts/PRD_VALIDATION_CHECKLIST.md) |
+| Specify or review an existing-product change/bug | [Change contract](CHANGE_CONTRACT.md) | [comparison CLI](../scripts/compare-prd.mjs), stable IDs and retirement review |
+| Migrate authority format | [Authority policy](AUTHORITY_POLICY.md) | Optional v1 field, exact normalized block and legacy rules |
 | Improve reliability | [Improve layout](../layout/IMPROVE_PRD.md) | [reliability guide](../prompts/RELIABILITY_GUIDE.md) |
 | Research a current dependency or choose an optional tool | [research and tool routing](../prompts/RESEARCH_AND_TOOL_ROUTING.md) | official primary sources and the target repository |
 | Generate an explicitly requested stateful runner plan | [Generate Tasks layout](../layout/GENERATE_TASKS.md) | [task-plan schema v2](../schemas/task-plan.schema.json) |
@@ -40,6 +42,7 @@ state.
 | Audit implemented code against the complete PRD | [Implementation Audit layout](../layout/AUDIT_IMPLEMENTATION.md) | target source, tests, runtime evidence, and task state |
 | Extend the toolkit | [Contributing](CONTRIBUTING.md) | relevant contract and tests |
 | Use the toolkit through Reasonix | [Reasonix adapter](REASONIX_ADAPTER.md) | canonical layouts and target repository instructions |
+| Inspect 3.2.0 verification evidence | [Local verification](../evals/release-3.2.0.md) | Fresh deterministic checks and historical handoffs; current publication is in PROGRESS.md |
 | Inspect version compatibility | [Baseline](../BASELINE.md) | [Changelog](../CHANGELOG.md) |
 | Inspect the tested two-conversation handoff | [Forward-test report](../evals/forward-test-report.md) | Scenario, observed evidence, and limitations |
 | Inspect instruction-size efficiency changes | [Efficiency rework](../evals/efficiency-rework-2026-09-12.md) | Before/after reading sets, compact-handoff checks, and usage measurement limits |

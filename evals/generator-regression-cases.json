@@ -167,13 +167,13 @@
       ]
     },
     {
-      "id": "native-local-build-authority",
-      "rough_idea": "A native local build uses explicit user build authority without requiring a runner-approval phrase.",
+      "id": "legacy-local-build-authority",
+      "rough_idea": "A historical PRD without declared policy version retains legacy checks with a non-blocking migration notice.",
       "output": "examples/tool-prd-example.md",
       "expected_type": "tool",
       "mutation": {
-        "find": "One exact plan approval covers declared local runner transitions.",
-        "replace": "Runner transitions follow the recorded plan."
+        "find": "authority_policy: 1\n",
+        "replace": ""
       },
       "expected_valid": true,
       "required_contracts": [

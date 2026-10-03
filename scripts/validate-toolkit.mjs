@@ -13,6 +13,14 @@ const DEFAULT_ROOT = path.resolve(SCRIPT_DIR, "..");
 export const CANONICAL_PATHS = [
   ".gitignore",
   "LICENSE",
+  "CLAUDE.md",
+  "docs/CHANGE_CONTRACT.md",
+  "docs/AUTHORITY_POLICY.md",
+  "scripts/compare-prd.mjs",
+  "scripts/authority-policy.mjs",
+  "tests/compare-prd.test.mjs",
+  "tests/change-integration.test.mjs",
+  "tests/authority-policy.test.mjs",
   ".gitattributes",
   ".github/workflows/check.yml",
   ".github/ISSUE_TEMPLATE/bug_report.md",
@@ -64,6 +72,7 @@ export const CANONICAL_PATHS = [
   "examples/tool-prd-example.md",
   "evals/generator-regression-cases.json",
   "evals/forward-test-report.md",
+  "evals/release-3.2.0.md",
   "scripts/local-task-runner.mjs",
   "scripts/validate-prd.mjs",
   "scripts/preview-prd.mjs",
@@ -247,9 +256,12 @@ function validateTemplate(root, file, expectedType, expectedSections, findings) 
   const parsed = parseFrontmatter(source);
   for (const finding of parsed.findings) addFinding(findings, `TEMPLATE_${finding.code}`, finding.message, file, finding.line);
   const keys = Object.keys(parsed.data).sort();
-  const expectedKeys = [...REQUIRED_FRONTMATTER_KEYS].sort();
+  const expectedKeys = [...REQUIRED_FRONTMATTER_KEYS, "authority_policy"].sort();
   if (JSON.stringify(keys) !== JSON.stringify(expectedKeys)) {
     addFinding(findings, "TEMPLATE_FRONTMATTER_KEYS", "Template frontmatter keys do not exactly match the canonical schema.", file, 1);
+  }
+  for (const finding of validatePrd(source).findings.filter((entry) => ["MILESTONE_AUTHORITY_POLICY", "AUTHORITY_POLICY_VERSION_UNSUPPORTED", "AUTHORITY_POLICY_LEGACY"].includes(entry.code))) {
+    addFinding(findings, "TEMPLATE_AUTHORITY_POLICY", finding.message, file, finding.line);
   }
   if (parsed.data.type !== expectedType) addFinding(findings, "TEMPLATE_TYPE", `Template type must be ${expectedType}.`, file, 1);
   if (parsed.data.ai_instructions !== "#builder-capability-routing-contract") addFinding(findings, "TEMPLATE_BUILDER_ENTRY", "New PRDs must point ai_instructions to their embedded builder contract.", file, 1);
@@ -418,6 +430,7 @@ export function validateVersionContract(packageJson, baselineSource, changelogSo
   const normalizedBaseline = baselineSource.replace(/\s+/g, " ");
   const expectedScripts = {
     "validate:prd": "node scripts/validate-prd.mjs",
+    "compare:prd": "node scripts/compare-prd.mjs",
     "validate:toolkit": "node scripts/validate-toolkit.mjs --json",
     test: "node --test",
     check: "node scripts/validate-toolkit.mjs --json && node --test",
@@ -650,6 +663,10 @@ export function validateToolkit(root = DEFAULT_ROOT) {
   }
 
   const taskPlanSchema = parsedJson["schemas/task-plan.schema.json"];
+  const frontmatterSchema = parsedJson["schemas/prd-frontmatter.schema.json"];
+  if (frontmatterSchema && (frontmatterSchema.properties?.authority_policy?.type !== "integer" || JSON.stringify(frontmatterSchema.properties?.authority_policy?.enum) !== "[1]" || frontmatterSchema.required?.includes("authority_policy"))) {
+    addFinding(findings, "AUTHORITY_SCHEMA_CONTRACT", "authority_policy must remain an optional integer constrained to supported version 1; legacy PRDs omit it.", "schemas/prd-frontmatter.schema.json");
+  }
   const taskStateSchema = parsedJson["schemas/task-state.schema.json"];
   const regressionSchema = parsedJson["schemas/generator-regression.schema.json"];
   const taskPlanTemplate = parsedJson["templates/task-plan.json"];
@@ -777,5 +794,5 @@ export function runCli(argv = process.argv.slice(2)) {
   return result.valid ? 0 : 1;
 }
 
-const isMain = process.argv[1] && fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url);
+const isMain = process.argv[1] && fs.existsSync(process.argv[1]) && fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) process.exitCode = runCli();

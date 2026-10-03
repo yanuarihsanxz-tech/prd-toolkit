@@ -9,6 +9,21 @@ Toolkit versions follow the policy in `BASELINE.md`.
 
 ## [Unreleased]
 
+No unreleased changes.
+
+## [3.2.0] - 2026-10-02
+
+### Added
+
+- Read-only textual/structural comparison of active FR/NFR/AC definitions,
+  including changed evidence, removals and retirement/reuse review. Integrates
+  the verified v3 parser and its original 56 tests.
+- Embedded change contracts for generation, revision, review and implementation
+  audit, including preserved behavior and original bug reproducers.
+- Fixed Authority Policy v1 format with safe formatting normalization and
+  explicit legacy compatibility. Conformance never grants real authority.
+- Self-contained, source-identified release distribution and installation paths.
+
 ### Changed
 
 - Explain the foreman, specialist, and builder roles, including how standalone
@@ -19,9 +34,21 @@ Toolkit versions follow the policy in `BASELINE.md`.
   decisions, specialist routing, and the evidence a builder must collect.
 - Make specification depth depend on decision value, uncertainty and failure
   consequences while preserving the requested outcome.
+- Restore clone/ZIP onboarding and the short repository-link invocation, align
+  the public foreman description, and distinguish local-delivery history from
+  the subsequently authorized public source update.
 
 ### Fixed
 
+- Validator --help/-h and --version succeed without an input file; invalid
+  usage still exits 2. Comparison CLI resolves symlinked installation paths.
+- CLI modules can be imported by Node standard-input scripts without treating
+  `-` as an executable filename or accidentally running their commands.
+- Comparison recognizes the actual templates' typed AC and combined Lite
+  requirement tables, rejects ambiguous unclosed metadata, and reports dropped
+  retirement history. The original 56 comparison regressions remain unchanged.
+- Describe generation as model-assisted and validation/comparison as
+  deterministic; batch material questions and foreground the first-use journey.
 - Use Node's test discovery so the check command works on supported Node versions.
 - Check POSIX state-file permissions only on systems that expose POSIX mode bits.
 - Clarify the coordinator role, specialist-tool boundaries, optional Reasonix

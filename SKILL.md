@@ -1,6 +1,6 @@
 ---
 name: prd-maker
-description: Prepare a self-contained PRD from the current conversation. Infer new-product, rework, or bug-fix specification context; honor analysis-only requests. Validation, owner summary and product flowchart are automatic. This entry performs specification work only.
+description: Prepare a self-contained PRD from conversation or existing-project context. Use for requests to write, revise, or review a PRD or specification, including reworks and bug fixes. Honors analysis-only requests. Validation, owner summary, and product flowchart are automatic. Specification only; it does not build.
 ---
 
 # PRD Maker
@@ -23,11 +23,11 @@ Select the specification operation from the actual request:
 | Context | Action |
 |---|---|
 | Resolved idea, no target PRD | Generate the PRD using the generator and selected template |
-| Explicit revision/rework of an existing PRD | Use layout/IMPROVE_PRD.md; preserve accepted scope and stable IDs |
-| Existing application to rework or bug to fix | Inspect relevant code and observed evidence, then specify the requested change; distinguish confirmed cause from hypothesis. Do not implement or run side-effecting debugging commands |
+| Explicit revision/rework of an existing PRD | Use layout/IMPROVE_PRD.md and [the change contract](docs/CHANGE_CONTRACT.md); preserve accepted scope and stable IDs |
+| Existing application to rework or bug to fix | Use [the change contract](docs/CHANGE_CONTRACT.md): inspect relevant code and observed evidence, then specify the requested change; distinguish confirmed cause from hypothesis. Do not implement or run side-effecting debugging commands |
 | Analyze, brainstorm, review only, or "don't write yet" | Discuss or review only; use layout/VALIDATE_PRD.md for a PRD review; do not create or modify files |
 | Bare invocation with an existing PRD but no requested change | Review its readiness; do not overwrite it or invent a rework |
-| Missing material product intent | Ask only the missing question; do not fabricate a product or write a generic PRD |
+| Missing material product intent | Ask the smallest useful batch of missing material questions; do not fabricate a product or write a generic PRD |
 
 Infer the target from the active project, attached PRD or resolved conversation.
 Never save a target PRD inside the toolkit. If the target is ambiguous, ask for

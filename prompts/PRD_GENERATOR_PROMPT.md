@@ -12,14 +12,20 @@ Do not restart discovery or manufacture DISCOVERY.md. An existing discovery
 document is optional evidence, not required builder context. Carry scope,
 exclusions, rationale, assumptions, research conclusions with source/date,
 prerequisites, and open material decisions into the PRD itself.
-Ask one question only if a missing answer changes the outcome materially and
-cannot be safely inferred; otherwise disclose the default. Never invent evidence.
+Ask the smallest useful batch of unresolved questions whose answers materially
+change the result and cannot be safely discovered. Continue independent work;
+disclose reasonable defaults for routine choices. Never invent evidence.
 
 Infer the work context from the request: new product, existing-product rework,
 or bug-fix specification. Reflect it in the Overview without adding metadata or
-new top-level sections. For rework, preserve working behavior and define the
-change boundary. For bug fixes, include reproduction evidence, expected/actual
-behavior, confirmed cause or hypothesis, and regression acceptance criteria.
+new top-level sections. For rework or bugs, read [the change contract](../docs/CHANGE_CONTRACT.md)
+and embed it in Overview or Requirements: current behavior and evidence limits,
+requested change, preserved interfaces/data/behavior, affected IDs, delta table,
+and checks of changed and preserved behavior. For bugs include the original
+reproducer, expected/actual result, and confirmed cause or hypothesis. Preserve
+continuing IDs, carry retirement history forward, and never reuse retired IDs.
+If a prior PRD exists, preserve its baseline and compare it with the new version;
+explain every removal and review reactivation or lost retirement records.
 Read relevant code as needed; generation never implements the fix. An explicit
 analysis-only request overrides generation. Summary, validation and product
 flowchart are default outputs even when the invocation is only "Use PRD Maker".
@@ -122,7 +128,11 @@ not granted by naming a tool. Preserve the template's runner no-bypass rule.
 Use the template's YAML frontmatter at line 1 and
 `schemas/prd-frontmatter.schema.json`. New PRDs use version 0.1.0, status draft,
 current_milestone 0, actual total_milestones, current creation date, and a selected
-tech_stack. Mark unresolved selections UNVERIFIED, not several mutually exclusive
+tech_stack. Emit `authority_policy: 1` and the selected template's exact visible
+Authority Policy v1 block, following [its format contract](../docs/AUTHORITY_POLICY.md).
+Formatting may change; words and sentence order must not. It never supplies real
+user authorization, host permission, runner approval, or owner acceptance.
+Mark unresolved selections UNVERIFIED, not several mutually exclusive
 technologies masquerading as one choice. Only owner approval means approved.
 During building use implementation; advance current_milestone only with verified
 evidence, never beyond total_milestones.
@@ -170,7 +180,7 @@ These are coverage reminders, not a second report or mandatory reasoning sequenc
 13. Diagrams are syntactically plausible and non-duplicative.
 14. Milestones are outcome-oriented, default 2-3, justified at 4-5, runnable early, automatically continued within authority, and end in integrated audit/repair.
 15. MVP, complete requested outcome, and exclusions are realistic and distinct.
-16. FR/NFR/AC definitions are unique and stable.
+16. FR/NFR/AC definitions are unique and stable; changes carry a delta table, retirement history, preserved-behavior checks and, for bugs, the original reproducer.
 17. Two-way traceability covers all capabilities and IDs, surfaces, milestones, and evidence without empty cells.
 18. AI behavior has evaluation cases, pass criteria, bounded authority, and fallback.
 19. Applicable reliability controls define evidence, failure classification, environment, and bounded readiness claims.
@@ -190,7 +200,8 @@ N/A reason only for a genuinely absent interface/model.
 
 ## Governance And Delivery
 
-Initialize target PROGRESS.md and DECISIONS.md from their templates. Preserve
+Initialize target PROGRESS.md from `templates/project-progress.md` and
+DECISIONS.md from `templates/project-decisions.md`. Preserve
 existing decisions and valid evidence; never write target state into toolkit
 root logs. The PRD owns the specification, PROGRESS.md owns live execution state,
 and DECISIONS.md owns decision changes/rationale. Update affected entries after

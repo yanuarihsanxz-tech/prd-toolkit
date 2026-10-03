@@ -1,13 +1,67 @@
-# PRD Maker / PRD Toolkit
+# PRD Toolkit
 
-Turn one product conversation into a self-contained PRD, then give that PRD to
-a fresh coding conversation to build the product. The toolkit supplies prompts,
-Full/Lite templates, structural checks, and an optional stateful runner. It has
-no package dependencies. A capable coding host does the reasoning and execution.
+The PRD foreman for AI coding agents: testable specifications, specialist routing,
+revision comparison, and a clear builder handoff. Generation uses your model;
+structural validation and comparison are deterministic. No package dependencies.
 
-Use any local checkout path. Substitute your actual toolkit path wherever the
-examples show `/absolute/path/to/prd-toolkit`. For a clean Git checkout, follow
-the [distribution guide](docs/DISTRIBUTION.md).
+Turn a product conversation or an existing-product issue into a self-contained,
+testable specification that a fresh builder can use.
+
+**Brief:** “Let visitors save favorite assets.” After agreeing on browser-local
+storage, no login and user-controlled reset, the PRD specifies add/remove,
+persistence after reload, unreadable-data recovery and the checks for each.
+See the [worked summary and flowchart](examples/prd-handoff-example.md).
+
+## Try It
+
+Clone the public toolkit and check it:
+
+```bash
+git clone https://github.com/yanuarihsanxz-tech/prd-toolkit.git
+cd prd-toolkit
+npm run check
+node scripts/validate-prd.mjs examples/tool-prd-example.md
+```
+
+You can also use GitHub's **Code → Download ZIP** and run these checks from the
+extracted toolkit folder. For an exported portable archive, use its `prd-maker/` directory.
+Verify its checksum and content manifest using the [distribution guide](docs/DISTRIBUTION.md).
+See [verification evidence](evals/release-3.2.0.md) for the current scope and limits.
+
+Node.js 20+ runs these terminal commands; no npm install or API key is needed.
+They check the toolkit and an existing example. To **generate** a specification,
+use your coding agent in a separate target project after discussing the outcome:
+
+```text
+Use /absolute/path/to/prd-toolkit/SKILL.md to prepare this project's PRD.
+```
+
+If your agent can fetch repositories, you can instead say:
+
+```text
+Use PRD Maker from https://github.com/yanuarihsanxz-tech/prd-toolkit.git for this project.
+```
+
+The agent needs the complete toolkit and reads its `SKILL.md`. When repository
+access is unavailable, supply the local checkout path above.
+
+The agent reads the conversation, chooses Full/Lite, writes PRD.md and its
+progress/decision companions, validates, and returns a summary and product flow.
+It ends at the specification handoff. In a fresh chat, “Build this PRD until
+done” authorizes the separate build workflow. A validator does not generate
+requirements or grant authority.
+
+| Your intent | Entry |
+|---|---|
+| New product specification | [SKILL.md](SKILL.md), then the generator and selected template |
+| Change an existing product or fix a bug | Same entry plus [change contract](docs/CHANGE_CONTRACT.md): current evidence, delta, preserved behavior and original reproducer |
+| Revise a PRD | [Improve](layout/IMPROVE_PRD.md), preserving IDs and retirement history |
+| Review only | [Validate](layout/VALIDATE_PRD.md); no file changes |
+| Compare two revisions | `node scripts/compare-prd.mjs old.md new.md --json --fail-on-removal` |
+| Install as a discoverable skill | [Installation](docs/GETTING_STARTED.md#folder-references-and-installed-skills) |
+
+Use your real checkout path in place of `/absolute/path/to/prd-toolkit`. A URL
+or folder mention requires actual host file access; it does not install a skill.
 
 ## What This Toolkit Does
 
@@ -49,73 +103,6 @@ success when it misses the user's outcome. The toolkit makes no universal
 promise about effort or product quality; both depend on the project and its
 execution.
 
-## Start With A Link, Clone, Or ZIP
-
-After discussing the product in a coding agent that can access GitHub and local
-files, one sentence is enough:
-
-```text
-Use PRD Maker from https://github.com/yanuarihsanxz-tech/prd-toolkit.git for this project.
-```
-
-The agent should fetch the **complete repository**, read its `SKILL.md`, use the
-current conversation as input, and stop after the validated PRD, summary, and
-product flowchart. A URL mention alone is a reference; it does not grant network
-access, install a skill, or authorize a build. If the agent cannot fetch files,
-clone or download the ZIP yourself and point it at the local `SKILL.md`.
-
-Download this repository using **Code → Download ZIP**, or copy the clone URL
-from the repository's **Code** menu. For this public repository:
-
-```bash
-git clone https://github.com/yanuarihsanxz-tech/prd-toolkit.git
-```
-
-Open the checkout in your preferred coding agent. Node.js 20+ runs the checks; no
-`npm install`, API key, paid service, or additional workflow plugin is needed.
-
-From the checkout directory:
-
-```bash
-npm run check
-node scripts/validate-prd.mjs examples/tool-prd-example.md --json
-node scripts/preview-prd.mjs examples/tool-prd-example.md
-```
-
-To generate a PRD, give your agent the checkout's `SKILL.md` and the resolved
-product requirements. The agent must have file access; generation is performed
-by your coding host, not by the validator CLI. Keep your target project in its
-own directory. Unfilled templates are starting points, not finished PRDs.
-
-## Use A Local Checkout After Your Discussion
-
-In your target project's conversation, discuss the idea, rework or bug until the
-intended outcome is clear. Then mention this checkout and say:
-
-```text
-Use this PRD Maker.
-```
-
-Or point directly to its entry file:
-
-```text
-Use /absolute/path/to/prd-toolkit/SKILL.md.
-```
-
-The agent reads the conversation, selects Full/Lite, prepares the target PRD,
-validates it, and returns a summary and product flowchart automatically. You do
-not need to request each output. See the [worked handoff](examples/prd-handoff-example.md).
-The technical document defaults to English; the explanation follows your language.
-
-Say "analyze only" to get analysis without file changes, or "revise this PRD" to
-update an existing specification. For a rework or bug-fix project, the agent
-inspects relevant evidence and specifies the change. This PRD entry stops at the
-specification handoff; it does not implement or debug your application.
-
-An existing PRD is reviewed rather than overwritten when no change is requested.
-Only a missing material decision or ambiguous target folder needs clarification.
-The host must be able to read the toolkit files; a mention is not an installation.
-
 ## What Changes In Practice
 
 These examples show what a useful specification should clarify. The PRD records
@@ -131,26 +118,6 @@ runtime evidence. Include each concern only when it applies to the product.
 | **Existing-product rework:** "Change this flow." | Current behavior, requested differences, dependencies, and behavior to preserve | Verify the changed flow and relevant regression paths |
 | **Specialist tools:** "Use a design or security tool." | Required capability, available route or fallback, and the acceptance evidence it must support | Demonstrate the required outcome; a tool name or successful launch is insufficient |
 | **Handoff or later changes:** "Another agent will build it." | Scope, decisions, stable requirement IDs, interfaces, and acceptance criteria in the PRD | The builder can trace implementation and checks to the agreed requirements without reconstructing the chat |
-
-### A Brief-To-Specification Example
-
-**Brief:** "Let visitors save favorite assets."
-
-Suppose the discussion establishes browser-local storage, no login, and an
-explicit recovery action for unreadable saved data. A useful PRD then states:
-
-> Visitors can add and remove favorites. Saved selections persist after a page
-> reload in the same browser. If saved data cannot be read, the app explains the
-> problem and offers a reset action. Resetting requires the visitor's action.
-
-The builder can test add, remove, reload, and the recovery action. If the intended
-product instead needs account sync, that decision changes the specification.
-The toolkit must resolve material ambiguity rather than invent a storage model.
-
-This illustrates a decision and its evidence path; it is not a product guarantee.
-See the [complete app PRD](examples/app-prd-example.md), the
-[tool PRD](examples/tool-prd-example.md), and the
-[summary and flowchart handoff](examples/prd-handoff-example.md) for worked examples.
 
 ## After The PRD
 
@@ -188,7 +155,7 @@ If directory attachments are ambiguous, mention that file directly. A fresh
 builder with filesystem and execution tools can use the embedded PRD instructions;
 a text-only model cannot run or verify your application.
 
-Local baseline: **3.1.2**. See [changes](CHANGELOG.md), [compatibility](BASELINE.md),
+Local baseline: **3.2.0**. See [changes](CHANGELOG.md), [compatibility](BASELINE.md),
 and [first-use details](docs/GETTING_STARTED.md). Local validation does not prove
 hosted CI, deployment, or production acceptance.
 

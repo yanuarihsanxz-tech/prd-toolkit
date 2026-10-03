@@ -18,6 +18,11 @@ language.
   PRD generation. Use `layout/DISCOVER_PRODUCT.md` only when evidence must
   survive a conversation boundary or has a distinct lifecycle; keep any target
   `DISCOVERY.md` distinct from the later PRD.
+- For existing-product changes and bugs, route through `docs/CHANGE_CONTRACT.md`;
+  use `scripts/compare-prd.mjs` against a preserved baseline and review removals,
+  retirement history, changed evidence and affected preserved behavior.
+- For authority format and legacy migration, use `docs/AUTHORITY_POLICY.md`;
+  document conformance never grants actual session, host or runner authority.
 - For PRD generation or review, read root `SKILL.md` first.
   `prompts/SKILL.md` remains a compatibility entry.
 - For a new PRD, follow `prompts/PRD_GENERATOR_PROMPT.md` and select

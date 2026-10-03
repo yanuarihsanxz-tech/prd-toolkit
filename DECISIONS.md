@@ -52,3 +52,41 @@ improvements require measured trials; instruction edits alone do not prove them.
 Record material design changes here and in CHANGELOG.md. Current user authority
 and platform instructions take precedence over historical decisions. Preserve
 existing runner evidence and supported contracts when changing implementation.
+
+## 3.2 Change-aware specifications — 2026-10-02
+
+The owner initially authorized implementation and publication to the verified
+repository. Their later 2026-10-02 instruction restricts this task to updating
+the live local toolkit; the owner will publish it. Retain a tested local
+distribution and recovery copy, and do not push, tag or create a release.
+Use a minor release: comparison is additive, authority v1 is opt-in for legacy
+PRDs, and Full/Lite and runner contracts remain compatible. Keep the verified
+v3 parser; only fix concrete integrated defects with focused regression tests.
+
+A Change Contract stays inside the existing PRD. Preserve current evidence,
+interfaces/data/behavior, continuing IDs and retirement history; original bug
+reproducers are part of verification. A comparison cannot prove semantic
+identity or preserved behavior in code. Fixed authority wording belongs to one
+versioned module; normalization changes formatting only and does not grant any
+actual authority.
+
+Retain existing operation paths and governance ownership. A new compact profile
+or reorganized runner would require observed handoff benefits and a migration
+case; shorter text alone does not justify another format. Use proportional
+Full/Lite output and investigate its outcomes in isolated evaluations. Keep
+unavailable host/model metrics and unperformed checks explicit.
+
+Recover interrupted work from the saved implementation commit and keep new
+verification evidence under durable local runs. The earlier temporary evaluation
+artifacts are no longer available: preserve the observations recorded in the
+conversation, distinguish them from fresh checks, and do not invent replacement
+raw logs or a completed builder audit.
+
+## Public update authorization — 2026-10-03
+
+The owner now requests pushing the final 3.2.0 toolkit to the existing public
+repository and aligning public descriptions. This supersedes the earlier
+local-only delivery instruction for source publication. Preserve prior local
+work and publish through a normal push under repository rules; verify the exact
+remote commit and hosted checks. Version tags and release assets remain distinct
+actions and are not inferred from the source push.

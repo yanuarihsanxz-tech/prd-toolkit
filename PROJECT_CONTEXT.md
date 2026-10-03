@@ -38,6 +38,8 @@ maintenance and documentation routing. `prompts/SKILL.md` is a compatibility shi
 | `prompts/RELIABILITY_GUIDE.md` | Conditional state, authority, failure, and verification detail |
 | `prompts/RESEARCH_AND_TOOL_ROUTING.md` | Current-source research and optional-tool adoption |
 | `scripts/validate-prd.mjs` | Generated-PRD structural preflight |
+| `docs/CHANGE_CONTRACT.md`, `scripts/compare-prd.mjs` | Existing-product delta, stable IDs, retirement history and read-only textual comparison |
+| `docs/AUTHORITY_POLICY.md`, `scripts/authority-policy.mjs` | Fixed authority format v1 and explicit legacy compatibility; never actual authorization |
 | `scripts/preview-prd.mjs` | Read-only extraction of the saved human overview and product flow; no generation or runtime claim |
 | `scripts/validate-toolkit.mjs`, `tests/`, `evals/` | Toolkit consistency, unit/CLI checks, representative regressions |
 | `schemas/` | PRD metadata, regression manifest, optional runner plan/state contracts |
@@ -56,6 +58,10 @@ maintenance and documentation routing. `prompts/SKILL.md` is a compatibility shi
    time-sensitive evidence, not requirements that the builder cannot otherwise see.
 2. Use stable, unique FR-###, NFR-###, AC-### IDs with two-way traceability to
    capabilities, implementation surfaces, milestones, and required evidence.
+   Reworks and bugs embed the change contract, current evidence and preserved
+   behavior. Retain retirement history and never reuse IDs. Comparison checks
+   text and structure, not semantic equivalence or implementation. New PRDs
+   declare authority_policy: 1; legacy PRDs retain prior checks with a notice.
 3. Use Full for user-facing apps, Lite for tools/automations/API-only systems.
    Preserve 10/6 top-level sections; scale detail to actual needs. Do not impose
    arbitrary feature/metric/test counts or the toolkit's architecture on products.

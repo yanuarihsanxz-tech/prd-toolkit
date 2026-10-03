@@ -1510,6 +1510,7 @@ function main() {
 
 if (
   process.argv[1] &&
+  fs.existsSync(process.argv[1]) &&
   import.meta.url === pathToFileURL(fs.realpathSync(process.argv[1])).href
 ) {
   main();
