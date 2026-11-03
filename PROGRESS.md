@@ -141,6 +141,12 @@ exported copies are ignored. A packet saved at the toolkit root also triggers
 documentation checks on its embedded relative links, so quickstart examples now
 save packets beside the checkout and verify the export remains unchanged.
 
+An independent replay used clean archives of the published 3.2.0 source
+(250d727) and the 3.3.0 implementation (c3d78b7). A failing test saved under
+the same export path in both ran only on 3.2.0. The [real-case report](evals/real-cases/README.md)
+records the observed results and how to repeat them. The normal generator
+now uses this example to explain independently checkable acceptance criteria.
+
 The final branch/commit and hosted CI links are delivery evidence, not source
 claims baked into these self-referential files. Merge, release, deployment and
 final acceptance are not performed by this maintenance.

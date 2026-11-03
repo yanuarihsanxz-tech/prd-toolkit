@@ -140,6 +140,14 @@ evidence, never beyond total_milestones.
 The template owns section structure. Populate concrete scope, observable
 requirements/ACs, interfaces, data validation, failures, and local start/test
 instructions. Label proposed commands and unobserved behavior UNVERIFIED.
+When an example resolves ambiguity, put the input, action and independently
+expected result beside the relevant AC. For a change, use the original failing
+input and name an outcome that must still work. A test-discovery fix, for
+example, should let the project's own tests run successfully with a failing test
+present in a saved export. The expected result stays valid as the suite grows.
+Use the target's native checks. For a CLI, an available toolkit evaluator can
+replay the same files and arguments before and after a change. Keep those
+expectations in the handoff so a builder can verify them with either route.
 For apps retain visual quality, typography, spacing, colors, interaction states,
 accessibility, and responsive/platform behavior. Reuse existing design systems.
 Do not add dark mode, HTTP APIs, databases, or hosting because a sample suggests

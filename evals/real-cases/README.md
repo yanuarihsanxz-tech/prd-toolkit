@@ -7,6 +7,26 @@ implementations; this is a formative workflow trial, not a blind handoff.
 
 ## Recorded result — 2026-11-03
 
+A saved export surfaced a defect in this repository's own `npm test` command.
+To reproduce it, we extracted the published 3.2.0 source and the 3.3.0
+implementation into separate directories. Each got the same file,
+`runs/saved-export/tests/saved-export-only.test.mjs`, containing one line:
+
+```js
+throw new Error("SAVED_EXPORT_TEST_EXECUTED");
+```
+
+| Source | What `npm test` did | Exit |
+|---|---|---|
+| [3.2.0](https://github.com/yanuarihsanxz-tech/prd-toolkit/tree/250d72717b76029c8423913e2662950058c67af0) | All 113 project tests passed. Test discovery also executed the failing file in the export. | 1 |
+| [3.3.0 implementation](https://github.com/yanuarihsanxz-tech/prd-toolkit/tree/c3d78b760f95e091c24ecfd03c6a083793e1bf1f) | All 131 project tests passed. The file in the export was never executed. | 0 |
+
+To repeat in disposable checkouts, add that file to each revision and run
+`npm test` from each root. Check both the exit code and whether the error marker
+appears in the output. This keeps the acceptance criterion useful as tests are
+added. The [distribution regression](../../tests/distribution.test.mjs) also
+checks which files the launcher selects.
+
 On macOS arm64 with Node.js 26.8.1:
 
 | Scenario | Preserved artifacts | Observed outcome |

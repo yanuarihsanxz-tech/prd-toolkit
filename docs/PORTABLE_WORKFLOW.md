@@ -47,6 +47,11 @@ it cannot honestly claim file writes, structural execution or product tests.
 For build/audit, attach the completed self-contained PRD. Managed runner state
 still requires the original runner and full guide; no packet bypasses it.
 
+Builders who already use [Ponytail](https://github.com/DietrichGebert/ponytail)
+can ask it to review a diff, then run the same acceptance cases. In Codex its
+review skill is `$ponytail:ponytail-review`. Other hosts can use their own review
+process with the same files and expected results.
+
 ## Run the existing checks
 
 ```bash

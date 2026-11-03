@@ -25,6 +25,8 @@ No unreleased changes.
   exact exit/output/file checks, unexpected-file detection and source receipts.
 - Retained new-product and CSV bug-repair cases: briefs, generated PRDs, fixed
   oracles, runnable implementations and the intentionally broken baseline.
+- The generator now puts a concrete input, action and independently expected
+  result beside acceptance criteria when a worked example resolves ambiguity.
 - Cross-directory/export tests and primary-source research with explicit
   adoption decisions and evidence limits.
 
