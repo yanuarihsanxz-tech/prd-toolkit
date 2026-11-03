@@ -58,7 +58,7 @@ when needed. No package, account, scanner or runtime is installed by this guide.
 | Authentication, permissions or API trust boundary | Positive and denied access, input validation and relevant security checks within authorized targets | Existing API tests, source scanner or scoped dynamic scanner | Scanner score alone, or marking an unexercised attack surface safe |
 | External service | Contract tests plus required live route evidence; timeout, invalid response and degradation checks | Provider sandbox, repository integration tests, available service connector | Configuration presence, HTTP 200 alone, or a mock proving live behavior |
 | Public delivery requested | Production artifact, startup and relevant route/asset checks on the intended environment | Repository build and hosting tools under actual deployment authority | Development server success as proof of deployed behavior |
-| CLI, batch or automation | Exit codes, input/output contracts, side effects and recovery appropriate to its trigger | Native process/file tests; relevant scheduler or provider harness | Browser checks added to a product with no UI |
+| CLI, batch or automation | Exit codes, input/output contracts, side effects and recovery appropriate to its trigger | Native process/file tests, or `scripts/prd.mjs evaluate` for a local CLI with fixed files and arguments. Scheduled work still needs its trigger exercised. | Browser checks added to a product with no UI |
 
 For responsive checks, measure overflow and inspect whether content or controls
 are clipped. Hiding horizontal overflow is not proof of usability; a wide table

@@ -10,12 +10,12 @@ Toolkit acceptance remains governed by `PROGRESS.md`.
 |---|---|
 | Name | PRD Toolkit |
 | Package | `prd-toolkit` |
-| Version | 3.2.0 |
-| Baseline date | 2026-10-02 |
+| Version | 3.3.0 |
+| Baseline date | 2026-11-03 |
 | Distribution | Files-only toolkit prepared for public Git distribution |
 | Runtime | Node.js `>=20.0.0`; no installed package dependency required |
 | Evidence level | Level 1 — unit-verified structural contracts only |
-| Separate behavioral evidence | One isolated Lite CLI generation/build trial; see evals/forward-test-report.md for its scope and limits |
+| Separate behavioral evidence | Retained new CLI and CSV repair trials in evals/real-cases/README.md; historical handoff in evals/forward-test-report.md; each has explicit scope limits |
 | Canonical documentation index | `docs/INDEX.md` |
 | Change history | `CHANGELOG.md` |
 
@@ -23,7 +23,7 @@ Toolkit acceptance remains governed by `PROGRESS.md`.
 
 | Contract | Version | Compatibility rule |
 |---|---:|---|
-| Toolkit package baseline | `3.2.0` | Follows the toolkit version policy below. |
+| Toolkit package baseline | `3.3.0` | Follows the toolkit version policy below. |
 | PRD frontmatter schema | `1` | Breaking metadata changes require a new schema identifier. |
 | Generator regression manifest | `1` | Breaking case-manifest changes require `schema_version` increment. |
 | Task plan | `2` | v1 evidence is historical and is never silently upgraded. |
@@ -37,7 +37,15 @@ documentation, routing, tests, or implementation details.
 
 ## Baseline Capabilities
 
-Version `3.2.0` includes:
+Version `3.3.0` includes the capabilities below plus the portable workflow and
+behavioral evaluator described in [Portable Workflow](docs/PORTABLE_WORKFLOW.md).
+The evaluator has its own data-only case format v1. Existing PRD metadata,
+10/6-section structures, authority format and runner v2 remain compatible.
+CLI aliases preserve existing exit codes; original command paths remain supported.
+The retained [real cases](evals/real-cases/README.md) provide bounded local runtime
+evidence separate from the structural readiness level above.
+
+Inherited capabilities:
 
 - Full and Lite PRD generation contracts;
 - canonical metadata, stable IDs, and two-way traceability;
@@ -162,7 +170,7 @@ Equivalent dependency-free commands:
 
 ```bash
 node scripts/validate-toolkit.mjs --json
-node --test
+node scripts/run-tests.mjs
 ```
 
 A passing result proves only the declared structural and unit contracts. It

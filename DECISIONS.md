@@ -90,3 +90,23 @@ local-only delivery instruction for source publication. Preserve prior local
 work and publish through a normal push under repository rules; verify the exact
 remote commit and hosted checks. Version tags and release assets remain distinct
 actions and are not inferred from the source push.
+
+## Portable workflow and real-case evaluation — 2026-11-03
+
+Current maintenance scope authorizes research, implementation and concrete
+verification of useful universal improvements. Use native execution on an
+isolated branch; preserve all existing PRD/authority/runner contracts. Version
+3.3.0 is additive. A portable packet routes existing canonical instructions;
+it never supplies a model, installed tool, actual execution or new authority.
+
+Add a data-only behavioral evaluator that runs an explicitly supplied trusted
+program without a shell. Fixed expected values, source identity, preserved failed
+baselines and actual process/file outcomes keep evidence inspectable. Retain
+the new CLI and CSV repair examples rather than relying on temporary artifacts.
+These are formative same-session trials, not blinded model benchmarks.
+
+The [research record](evals/research-2026-11-03.md) explains source selection and
+Ponytail reuse-first principles. No new provider, runtime, host plugin or persistent
+instruction is needed. Publish reviewable source on a normal feature branch;
+main-branch merge, tags, package releases and final owner acceptance remain
+separate actions. Do not claim one of those from a passing local check.

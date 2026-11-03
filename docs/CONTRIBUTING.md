@@ -193,7 +193,7 @@ Run the automated structural and regression suite first:
 
 ```bash
 node scripts/validate-toolkit.mjs --json
-node --test
+node scripts/run-tests.mjs
 ```
 
 The toolkit validator must stay dependency-free, emit stable finding codes,
@@ -201,6 +201,13 @@ bind its report to a secret-free source fingerprint, and keep validation
 findings (`1`) distinct from invocation/input failure (`2`). Generator cases
 must use checked-in sanitized outputs or deterministic exact-one mutations;
 they must not invoke a live model, provider, recipient, or application runtime.
+
+Behavioral cases are separate from generator regressions. Keep their briefs,
+expected outputs and preserved broken baselines under `evals/real-cases/`.
+`scripts/evaluate.mjs` executes only the trusted program explicitly supplied by
+the caller, never a command from case JSON. Freeze expected values before a
+repair, preserve failed attempts and compare the same case hash. Include source
+identity and limitations; fixture outcomes are not a universal model score.
 
 Then complete the evidence-based checks that automation cannot prove:
 

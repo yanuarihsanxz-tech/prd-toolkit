@@ -13,7 +13,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 test("complete toolkit structural validation and generator regressions pass", () => {
   const result = validateToolkit(ROOT);
   assert.equal(result.valid, true, JSON.stringify(result.findings, null, 2));
-  assert.equal(result.version, "3.2.0");
+  assert.equal(result.version, "3.3.0");
   assert.equal(result.counts.findings, 0);
   assert.equal(result.counts.regression_cases, 12);
   assert.equal(result.counts.regression_passed, 12);

@@ -26,7 +26,8 @@ node scripts/validate-prd.mjs examples/tool-prd-example.md
 You can also use GitHub's **Code → Download ZIP** and run these checks from the
 extracted toolkit folder. For an exported portable archive, use its `prd-maker/` directory.
 Verify its checksum and content manifest using the [distribution guide](docs/DISTRIBUTION.md).
-See [verification evidence](evals/release-3.2.0.md) for the current scope and limits.
+See the [reproducible real cases](evals/real-cases/README.md) and
+[prior verification evidence](evals/release-3.2.0.md) for their scope and limits.
 
 Node.js 20+ runs these terminal commands; no npm install or API key is needed.
 They check the toolkit and an existing example. To **generate** a specification,
@@ -58,10 +59,41 @@ requirements or grant authority.
 | Revise a PRD | [Improve](layout/IMPROVE_PRD.md), preserving IDs and retirement history |
 | Review only | [Validate](layout/VALIDATE_PRD.md); no file changes |
 | Compare two revisions | `node scripts/compare-prd.mjs old.md new.md --json --fail-on-removal` |
+| Use any assistant without memorizing prompt paths | `node scripts/prd.mjs context generate --type tool --out ../prd-instructions.md` |
+| Measure a built CLI against fixed real cases | [Portable workflow and evaluator](docs/PORTABLE_WORKFLOW.md) |
 | Install as a discoverable skill | [Installation](docs/GETTING_STARTED.md#folder-references-and-installed-skills) |
 
 Use your real checkout path in place of `/absolute/path/to/prd-toolkit`. A URL
 or folder mention requires actual host file access; it does not install a skill.
+
+## One Portable Command
+
+```bash
+node scripts/prd.mjs --help
+node scripts/prd.mjs context generate --type tool --out ../prd-instructions.md
+node scripts/prd.mjs validate examples/tool-prd-example.md --json
+```
+
+Attach the generated instruction packet and your brief to the assistant you
+already use. Choose `--type app` for a UI product, or omit it and let the agent
+choose. `context improve` prepares a PRD revision; `--change` includes existing
+product/bug contracts. Context preparation packages instructions; your model
+still creates the PRD. Chat-only hosts must leave executable checks unverified.
+The local-checkout workflow above remains the smallest option when available.
+Save packets outside the toolkit; the example creates a sibling file. Generated
+packets are attachments, not canonical toolkit documentation.
+
+Try the behavioral evaluator on a retained working example (replace the absolute
+candidate path with your actual checkout):
+
+```bash
+node scripts/prd.mjs evaluate evals/real-cases/csv-total/case.json --json -- node /absolute/path/to/prd-toolkit/evals/real-cases/csv-total/candidate.mjs
+```
+
+Run the same command with `before.mjs` to reproduce the original defects. The
+same 14-case oracle produced **5 passes before repair and 14 after** in the
+recorded trial. These are actual process/file checks, not a model-quality score.
+See [case evidence and reproduction](evals/real-cases/README.md).
 
 ## What This Toolkit Does
 
@@ -155,7 +187,7 @@ If directory attachments are ambiguous, mention that file directly. A fresh
 builder with filesystem and execution tools can use the embedded PRD instructions;
 a text-only model cannot run or verify your application.
 
-Local baseline: **3.2.0**. See [changes](CHANGELOG.md), [compatibility](BASELINE.md),
+Local baseline: **3.3.0**. See [changes](CHANGELOG.md), [compatibility](BASELINE.md),
 and [first-use details](docs/GETTING_STARTED.md). Local validation does not prove
 hosted CI, deployment, or production acceptance.
 

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "line-summary",
+  "description": "Inspect real UTF-8 text files with literal filters and preserve source bytes.",
+  "timeout_ms": 3000,
+  "tests": [
+    { "id": "notes-with-blanks", "args": ["notes.txt"], "files": { "notes.txt": "alpha\n\nbeta\n" }, "expect": { "exit": 0, "json": { "lines": 3, "non_empty": 2, "matching": null }, "stderr": "" } },
+    { "id": "empty-file", "args": ["empty.txt"], "files": { "empty.txt": "" }, "expect": { "exit": 0, "json": { "lines": 0, "non_empty": 0, "matching": null }, "stderr": "" } },
+    { "id": "one-empty-line", "args": ["blank.txt"], "files": { "blank.txt": "\n" }, "expect": { "exit": 0, "json": { "lines": 1, "non_empty": 0, "matching": null }, "stderr": "" } },
+    { "id": "windows-newlines", "args": ["windows.txt", "--contains", "beta"], "files": { "windows.txt": "alpha\r\n\r\nbeta\r\n" }, "expect": { "exit": 0, "json": { "lines": 3, "non_empty": 2, "matching": 1 }, "stderr": "" } },
+    { "id": "unicode-literal", "args": ["notes with spaces.txt", "--contains", "猫"], "files": { "notes with spaces.txt": "猫\n  \ncat\n猫猫" }, "expect": { "exit": 0, "json": { "lines": 4, "non_empty": 3, "matching": 2 }, "stderr": "" } },
+    { "id": "case-sensitive", "args": ["case.txt", "--contains", "Cat"], "files": { "case.txt": "Cat\ncat\nCAT" }, "expect": { "exit": 0, "json": { "lines": 3, "non_empty": 3, "matching": 1 }, "stderr": "" } },
+    { "id": "shell-and-regex-are-literal", "args": ["data.txt", "--contains", "$(echo x).*"], "files": { "data.txt": "$(echo x).*\nanything\n" }, "expect": { "exit": 0, "json": { "lines": 2, "non_empty": 2, "matching": 1 }, "stderr": "" } },
+    { "id": "empty-filter", "args": ["data.txt", "--contains", ""], "files": { "data.txt": "a\n\nb" }, "expect": { "exit": 0, "json": { "lines": 3, "non_empty": 2, "matching": 3 }, "stderr": "" } },
+    { "id": "missing-file", "args": ["missing.txt"], "files": {}, "expect": { "exit": 1, "stdout": "", "stderr": "Cannot read input\n" } },
+    { "id": "directory-input", "args": ["."], "files": {}, "expect": { "exit": 1, "stdout": "", "stderr": "Cannot read input\n" } },
+    { "id": "missing-arguments", "args": [], "files": {}, "expect": { "exit": 2, "stdout": "", "stderr": "Invalid arguments\n" } },
+    { "id": "unknown-option", "args": ["notes.txt", "--regex", "a"], "files": { "notes.txt": "a\n" }, "expect": { "exit": 2, "stdout": "", "stderr": "Invalid arguments\n" } }
+  ]
+}

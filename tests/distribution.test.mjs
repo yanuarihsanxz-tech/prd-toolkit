@@ -6,9 +6,10 @@ import { spawnSync } from "node:child_process";
 import test from "node:test";
 import { exportToolkit, verifyDistribution } from "../scripts/export-toolkit.mjs";
 import { CANONICAL_PATHS, validateToolkit } from "../scripts/validate-toolkit.mjs";
+import { testFiles } from "../scripts/run-tests.mjs";
 
 test("CLI modules can be imported from standard input without executing or resolving '-'", () => {
-  const modules = ["compare-prd", "validate-prd", "validate-toolkit", "preview-prd", "export-toolkit", "local-task-runner"];
+  const modules = ["prd", "evaluate", "run-tests", "compare-prd", "validate-prd", "validate-toolkit", "preview-prd", "export-toolkit", "local-task-runner"];
   const input = modules.map((name) => `import ${JSON.stringify(new URL(`../scripts/${name}.mjs`, import.meta.url).href)};`).join("\n");
   const imported = spawnSync(process.execPath, ["--input-type=module", "-"], {
     input, cwd: os.tmpdir(), encoding: "utf8",
@@ -16,6 +17,18 @@ test("CLI modules can be imported from standard input without executing or resol
   assert.equal(imported.status, 0, imported.stderr);
   assert.equal(imported.stdout, "");
   assert.equal(imported.stderr, "");
+});
+
+test("test discovery ignores archived/exported copies and uses only explicit toolkit test files", () => {
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), "prd-tests-"));
+  try {
+    fs.mkdirSync(path.join(temporary, "tests"));
+    fs.mkdirSync(path.join(temporary, "runs/export/tests"), { recursive: true });
+    fs.writeFileSync(path.join(temporary, "tests/real.test.mjs"), "");
+    fs.writeFileSync(path.join(temporary, "tests/helper.mjs"), "");
+    fs.writeFileSync(path.join(temporary, "runs/export/tests/duplicate.test.mjs"), "");
+    assert.deepEqual(testFiles(temporary), [path.join(temporary, "tests/real.test.mjs")]);
+  } finally { fs.rmSync(temporary, { recursive: true, force: true }); }
 });
 
 test("clean export works from another cwd, preserves identity, excludes local data, and refuses overwrite", () => {
@@ -43,6 +56,16 @@ test("clean export works from another cwd, preserves identity, excludes local da
       assert.equal(comparison.status, 0, comparison.stderr);
       assert.equal(JSON.parse(comparison.stdout).valid, true);
     }
+    const packet = spawnSync(process.execPath, [path.join(target, "scripts/prd.mjs"), "context", "generate", "--type", "tool"], { cwd: temporary, encoding: "utf8" });
+    assert.equal(packet.status, 0, packet.stderr);
+    assert.match(packet.stdout, /# Toolkit source: templates\/lite.md/);
+    const packetPath = path.join(temporary, "instructions.md");
+    const savedPacket = spawnSync(process.execPath, [path.join(target, "scripts/prd.mjs"), "context", "generate", "--type", "tool", "--out", packetPath], { cwd: temporary, encoding: "utf8" });
+    assert.equal(savedPacket.status, 0, savedPacket.stderr);
+    assert.equal(verifyDistribution(target).verified, true);
+    const evaluated = spawnSync(process.execPath, [path.join(target, "scripts/prd.mjs"), "evaluate", path.join(target, "evals/real-cases/line-summary/case.json"), "--json", "--", process.execPath, path.join(target, "evals/real-cases/line-summary/candidate.mjs")], { cwd: temporary, encoding: "utf8" });
+    assert.equal(evaluated.status, 0, evaluated.stderr);
+    assert.equal(JSON.parse(evaluated.stdout).passed, true);
     assert.throws(() => exportToolkit(target), /already exists/);
     const installation = path.join(temporary, "project", ".agents", "skills", "prd-maker");
     exportToolkit(installation);
