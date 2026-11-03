@@ -76,7 +76,8 @@ test("validator help and version exit zero without input; invalid usage stays ex
     const result = spawnSync(process.execPath, [fileURLToPath(cli), flag], { encoding: "utf8" });
     assert.equal(result.status, 0, result.stderr);
     assert.equal(result.stderr, "");
-    assert.match(result.stdout, flag === "--version" ? /^3\.2\.0\s*$/ : /Exit codes: 0 valid/);
+    if (flag === "--version") assert.equal(result.stdout.trim(), JSON.parse(fs.readFileSync(new URL("../package.json", import.meta.url), "utf8")).version);
+    else assert.match(result.stdout, /Exit codes: 0 valid/);
   }
   for (const args of [[], ["--unknown"], ["--help", "extra.md"], ["--expect-type", "wrong"]]) {
     const result = spawnSync(process.execPath, [fileURLToPath(cli), ...args], { encoding: "utf8" });

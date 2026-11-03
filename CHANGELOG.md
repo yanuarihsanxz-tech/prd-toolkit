@@ -11,6 +11,29 @@ Toolkit versions follow the policy in `BASELINE.md`.
 
 No unreleased changes.
 
+## [3.3.0] - 2026-11-03
+
+### Added
+
+- One dependency-free CLI for context preparation, validation, comparison,
+  preview, toolkit checking and behavioral evaluation; original commands remain.
+- Portable operation packets with exact canonical instructions and source hashes,
+  optional Full/Lite selection, change contracts and reliability guidance.
+  Packets never overwrite existing files or imply model calls/build authority.
+- A data-only behavioral case format and shell-free evaluator for explicitly
+  supplied trusted programs, with isolated fixtures, timeout/output limits,
+  exact exit/output/file checks, unexpected-file detection and source receipts.
+- Retained new-product and CSV bug-repair cases: briefs, generated PRDs, fixed
+  oracles, runnable implementations and the intentionally broken baseline.
+- Cross-directory/export tests and primary-source research with explicit
+  adoption decisions and evidence limits.
+
+### Fixed
+
+- Scope npm test/check discovery to the toolkit's tests directory. Saved exports
+  under local runs no longer execute duplicate suites or inflate evidence counts;
+  explicit filenames avoid Node-version and Windows glob/directory differences.
+
 ## [3.2.0] - 2026-10-02
 
 ### Added

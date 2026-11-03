@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "csv-total",
+  "description": "Repair a CSV expense export without changing its JSON interface or source files.",
+  "timeout_ms": 3000,
+  "tests": [
+    { "id": "ordinary-export", "args": ["costs.csv"], "files": { "costs.csv": "item,amount\nHosting,19.90\nStorage,0.10\n" }, "expect": { "exit": 0, "json": { "rows": 2, "total": "20.00" }, "stderr": "" } },
+    { "id": "quoted-comma", "args": ["costs.csv"], "files": { "costs.csv": "item,amount\n\"Hosting, monthly\",19.90\nStorage,0.10\n" }, "expect": { "exit": 0, "json": { "rows": 2, "total": "20.00" }, "stderr": "" } },
+    { "id": "quoted-newline-and-escaped-quote", "args": ["costs.csv"], "files": { "costs.csv": "item,amount\r\n\"A \"\"quoted\"\"\r\nitem\",2.50\r\nRefund,-0.50\r\n" }, "expect": { "exit": 0, "json": { "rows": 2, "total": "2.00" }, "stderr": "" } },
+    { "id": "large-exact-amount", "args": ["costs.csv"], "files": { "costs.csv": "item,amount\nLarge,9007199254740992.01\nSmall,0.09\n" }, "expect": { "exit": 0, "json": { "rows": 2, "total": "9007199254740992.10" }, "stderr": "" } },
+    { "id": "refund-zero", "args": ["costs.csv"], "files": { "costs.csv": "item,amount\nCredit,-0.10\nDebit,0.1\n" }, "expect": { "exit": 0, "json": { "rows": 2, "total": "0.00" }, "stderr": "" } },
+    { "id": "bom-header-only", "args": ["costs.csv"], "files": { "costs.csv": "﻿item,amount\r\n" }, "expect": { "exit": 0, "json": { "rows": 0, "total": "0.00" }, "stderr": "" } },
+    { "id": "excess-precision", "args": ["costs.csv"], "files": { "costs.csv": "item,amount\nBad,0.001\n" }, "expect": { "exit": 1, "stdout": "", "stderr": "Invalid CSV\n" } },
+    { "id": "non-numeric-amount", "args": ["costs.csv"], "files": { "costs.csv": "item,amount\nBad,NaN\n" }, "expect": { "exit": 1, "stdout": "", "stderr": "Invalid CSV\n" } },
+    { "id": "formula-is-not-an-amount", "args": ["costs.csv"], "files": { "costs.csv": "item,amount\nBad,=1+2\n" }, "expect": { "exit": 1, "stdout": "", "stderr": "Invalid CSV\n" } },
+    { "id": "unterminated-quote", "args": ["costs.csv"], "files": { "costs.csv": "item,amount\n\"Bad,2.00\n" }, "expect": { "exit": 1, "stdout": "", "stderr": "Invalid CSV\n" } },
+    { "id": "wrong-header", "args": ["costs.csv"], "files": { "costs.csv": "name,cost\nItem,2.00\n" }, "expect": { "exit": 1, "stdout": "", "stderr": "Invalid CSV\n" } },
+    { "id": "extra-field", "args": ["costs.csv"], "files": { "costs.csv": "item,amount\nItem,2.00,extra\n" }, "expect": { "exit": 1, "stdout": "", "stderr": "Invalid CSV\n" } },
+    { "id": "missing-input", "args": ["missing.csv"], "files": {}, "expect": { "exit": 1, "stdout": "", "stderr": "Cannot read input\n" } },
+    { "id": "usage", "args": [], "files": {}, "expect": { "exit": 2, "stdout": "", "stderr": "Invalid arguments\n" } }
+  ]
+}

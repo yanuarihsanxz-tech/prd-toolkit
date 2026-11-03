@@ -105,3 +105,42 @@ public tree contains the expected 79 canonical files. Repository visibility is
 public, and its description now names the foreman, specialist routing, revision
 comparison and verifiable builder handoff. These checks establish publication
 and toolkit behavior; they do not establish universal model or target-app quality.
+
+## 3.3.0 portable workflow — 2026-11-03
+
+Native maintenance starts from 250d727 on an isolated feature branch. The current
+request authorizes research and implementation with real-case verification.
+Existing main and historical attempts remain intact; no managed runner is active.
+
+| # | Outcome | Evidence boundary | Status |
+|---|---|---|---|
+| 1 | Portable operation selection over existing contracts | CLI aliases, exact-source packets, no-overwrite and foreign-directory checks | Implemented; focused checks passed |
+| 2 | Reproducible behavioral evaluation | Fixed cases on real processes/files; CSV baseline fails and repair passes; generated PRDs and sources retained | Implemented; focused checks passed |
+| 3 | Integrated, reviewable delivery | Full suite, clean export and source review; hosted results belong to the exact PR commit | Verified locally; hosted evidence is reported on the PR |
+
+The [research](evals/research-2026-11-03.md), [usage contract](docs/PORTABLE_WORKFLOW.md)
+and [case audit](evals/real-cases/README.md) separate observations from limits.
+Focused checks found that comparing decoded strings could hide invalid-byte
+rewrites; the evaluator now compares bytes and rejects undeclared paths. Source
+mutation also prevents a passing receipt. No cross-model, browser-product,
+token-cost, provider, deployment or owner-acceptance claim is made.
+
+Local integrated evidence: all 131 tests passed with zero skips and all 12
+structural generator regressions passed on macOS arm64 / Node 26.8.1. The
+unchanged 3.2.0 checkout separately passed 113 tests. A 97-file clean export
+verified against its manifest and passed the same 131 tests from its own
+directory, including packet creation and real-case execution with spaced paths.
+`git diff --check` passed. The first integrated attempt exposed a hard-coded
+3.2.0 version assertion; it now compares with package.json. Raw failed/successful
+local attempts are retained under ignored runs; no attempt was overwritten.
+
+Saving exports under runs reproduced an old test-discovery problem: unscoped
+node --test also executed the exported suite and reported 260 tests. The npm
+scripts now enumerate only the toolkit test files; a regression verifies that
+exported copies are ignored. A packet saved at the toolkit root also triggers
+documentation checks on its embedded relative links, so quickstart examples now
+save packets beside the checkout and verify the export remains unchanged.
+
+The final branch/commit and hosted CI links are delivery evidence, not source
+claims baked into these self-referential files. Merge, release, deployment and
+final acceptance are not performed by this maintenance.

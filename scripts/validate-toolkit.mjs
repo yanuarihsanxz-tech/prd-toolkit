@@ -90,6 +90,24 @@ export const CANONICAL_PATHS = [
   "scripts/export-toolkit.mjs",
   "tests/distribution.test.mjs",
   "docs/CONVERSATION_TO_UNIVERSAL_PRD_LESSONS.md",
+  "docs/PORTABLE_WORKFLOW.md",
+  "scripts/prd.mjs",
+  "scripts/run-tests.mjs",
+  "scripts/evaluate.mjs",
+  "tests/prd.test.mjs",
+  "tests/evaluate.test.mjs",
+  "tests/real-cases.test.mjs",
+  "evals/real-cases/README.md",
+  "evals/real-cases/line-summary/BRIEF.md",
+  "evals/real-cases/line-summary/PRD.md",
+  "evals/real-cases/line-summary/case.json",
+  "evals/real-cases/line-summary/candidate.mjs",
+  "evals/real-cases/csv-total/BRIEF.md",
+  "evals/real-cases/csv-total/PRD.md",
+  "evals/real-cases/csv-total/case.json",
+  "evals/real-cases/csv-total/before.mjs",
+  "evals/real-cases/csv-total/candidate.mjs",
+  "evals/research-2026-11-03.md",
 ];
 
 const REASONIX_COMMANDS = new Map([
@@ -429,11 +447,12 @@ export function validateVersionContract(packageJson, baselineSource, changelogSo
   const add = (code, message) => findings.push({ code, message });
   const normalizedBaseline = baselineSource.replace(/\s+/g, " ");
   const expectedScripts = {
+    prd: "node scripts/prd.mjs",
     "validate:prd": "node scripts/validate-prd.mjs",
     "compare:prd": "node scripts/compare-prd.mjs",
     "validate:toolkit": "node scripts/validate-toolkit.mjs --json",
-    test: "node --test",
-    check: "node scripts/validate-toolkit.mjs --json && node --test",
+    test: "node scripts/run-tests.mjs",
+    check: "node scripts/validate-toolkit.mjs --json && node scripts/run-tests.mjs",
   };
   if (!packageJson || typeof packageJson !== "object" || Array.isArray(packageJson)) {
     add("VERSION_PACKAGE_OBJECT", "package.json must be an object.");

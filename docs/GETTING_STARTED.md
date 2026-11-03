@@ -1,5 +1,12 @@
 # Getting Started with the PRD Toolkit
 
+Use `node scripts/prd.mjs --help` for the unified terminal entry. When your
+assistant cannot read the toolkit folder, create an operation packet with
+`node scripts/prd.mjs context generate --out ../prd-instructions.md` and attach it
+with the brief. [Portable workflow](PORTABLE_WORKFLOW.md) explains selection,
+chat-only limits and executable real-case checks. Folder access remains the
+default; a packet is optional and never generates the PRD by itself.
+
 ## Two Conversations
 
 Start in the target project folder, not the toolkit folder. Use the capable

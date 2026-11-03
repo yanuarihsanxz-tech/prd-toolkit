@@ -27,6 +27,8 @@ state.
 | Use the toolkit folder | [root skill](../SKILL.md) | Only the operation requested by the user |
 | Understand or maintain the toolkit | [README](../README.md) | [canonical context](../PROJECT_CONTEXT.md) |
 | First local use | [Getting Started](GETTING_STARTED.md) | [layout router](../layout/INDEX.md) |
+| Use another assistant or evaluate a built CLI | [Portable workflow](PORTABLE_WORKFLOW.md) | Operation packets, command aliases, case format and evidence limits |
+| Reproduce new-product and existing-product trials | [Real cases](../evals/real-cases/README.md) | Fixed oracles, retained implementations and known-broken baseline |
 | Prepare a separate Git checkout | [Distribution](DISTRIBUTION.md) | Clean export, portable paths, CI and publication limits |
 | Inspect Git preparation evidence | [Git readiness audit](../evals/git-readiness-2026-09-27.md) | Reproduced defects, repairs, local verification and hosted-test limits |
 | Brainstorm and research before a PRD | Current conversation, then [Generate layout](../layout/GENERATE_PRD.md) | Use the [Discover layout](../layout/DISCOVER_PRODUCT.md) only for durable cross-conversation evidence |
@@ -55,6 +57,7 @@ state.
 |---|---|---|---|
 | `README.md` | Overview | Purpose, quick routing, core commands | Detailed policy or historical ledger |
 | `docs/GETTING_STARTED.md` | Onboarding | First-use procedure | Canonical architecture decisions |
+| `docs/PORTABLE_WORKFLOW.md` | Portable command contract | Packet semantics and data-only behavioral evaluation | Model generation, authority, or universal-quality claims |
 | `PROJECT_CONTEXT.md` | Canonical contract | Architecture, standards, authority | Step-by-step tutorial detail |
 | `AGENTS.md` | Agent instruction | Required routing and safety | Product-specific decisions |
 | `SKILL.md` | Agent entry | Intent routing and progressive context loading | Duplicated mode-specific procedures |
@@ -69,6 +72,7 @@ state.
 | `DECISIONS.md` | Toolkit governance | Accepted/proposed toolkit decisions | Target-project decisions |
 | `PROGRESS.md` | Toolkit governance | Toolkit milestone state and evidence | Target-project progress |
 | `evals/forward-test-report.md` | Bounded evaluation evidence | Isolated handoff scenario, results, source identities, and limits | Universal quality, runtime, or cost guarantees |
+| `evals/real-cases/` | Reproducible behavioral evidence | Fixed briefs, PRDs, program cases and retained implementations | Customer-deployment or independent model-benchmark claims |
 | `docs/CONVERSATION_TO_UNIVERSAL_PRD_LESSONS.md` | Design rationale | Generalized lessons, abstraction, accepted contracts | Current runtime proof |
 | `docs/archive/` | Historical archive | Superseded documentation with provenance | Current canonical instruction |
 

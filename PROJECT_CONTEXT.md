@@ -41,6 +41,8 @@ maintenance and documentation routing. `prompts/SKILL.md` is a compatibility shi
 | `docs/CHANGE_CONTRACT.md`, `scripts/compare-prd.mjs` | Existing-product delta, stable IDs, retirement history and read-only textual comparison |
 | `docs/AUTHORITY_POLICY.md`, `scripts/authority-policy.mjs` | Fixed authority format v1 and explicit legacy compatibility; never actual authorization |
 | `scripts/preview-prd.mjs` | Read-only extraction of the saved human overview and product flow; no generation or runtime claim |
+| `scripts/prd.mjs`, `docs/PORTABLE_WORKFLOW.md` | Optional portable operation packets and aliases to existing commands; no generation or implicit build |
+| `scripts/evaluate.mjs`, `evals/real-cases/` | Explicitly invoked trusted-program behavioral checks with fixed data-only cases; separate from structural generator regressions |
 | `scripts/validate-toolkit.mjs`, `tests/`, `evals/` | Toolkit consistency, unit/CLI checks, representative regressions |
 | `schemas/` | PRD metadata, regression manifest, optional runner plan/state contracts |
 | `layout/EXECUTE_TASKS.md` | Native default build and runner selection |
